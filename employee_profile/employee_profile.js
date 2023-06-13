@@ -1,3 +1,8 @@
+
+document.addEventListener('DOMContentLoaded', function () {
+    M.AutoInit();
+});
+
 const experienceListContainer = document.getElementById("experience-list");
 
 const experienceList = [

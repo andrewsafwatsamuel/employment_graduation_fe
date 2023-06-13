@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        body {
+            background-color: #eaf2f8;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .row {
+            margin-bottom: 0;
+        }
+
+        .input-field.col {
+            margin-bottom: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .company-name {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .employment-type {
+            font-style: italic;
+            margin-right: 10px;
+        }
+
+        .job-title {
+            margin-right: 10px;
+        }
+
+        .date-range {
+            margin-right: 10px;
+        }
+
+        .delete-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            background-color: #bdbdbd;
+        }
+
+        .material-icons {
+            font-size: 16px;
+            color: #616161;
+        }
+
+        .custom {
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6">
+                <div class="section">
+                    <h5>Personal Details</h5>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" id="name">
+                            <label for="name">Name</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="bio" class="materialize-textarea"></textarea>
+                            <label for="bio">Bio</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input type="text" id="title">
+                            <label for="title">Title</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input type="text" id="phone">
+                            <label for="phone">Phone</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input type="email" id="email">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="col s12">
+                            <button class="btn waves-effect waves-light custom" type="submit"
+                                name="action">Save</button>
+                        </div>
+                        <h5> Change Password </h5>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input type="password" id="oldPassword">
+                                <label for="oldPassword">Old Password</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input type="password" id="newPassword">
+                                <label for="newPassword">New Password</label>
+                            </div>
+                            <div class="col s12">
+                                <button class="btn waves-effect waves-light" type="submit" name="action">Change
+                                    Password</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6">
+                <div class="section">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="section-header">
+                                <h5 class="section-title">Experiences</h5>
+                                <button class="btn waves-effect waves-light" type="submit" name="action">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="experience-list" class="col s12"></div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            M.AutoInit();
+        });
+    </script>
+    <script>
+        const experienceList = [
+            {
+                companyName: "Example Company 1",
+                employmentType: "Full-time",
+                startDate: "2020-01-01",
+                endDate: "2021-12-31",
+                jobTitle: "Software Engineer"
+            },
+            {
+                companyName: "Example Company 2",
+                employmentType: "Part-time",
+                startDate: "2019-05-01",
+                endDate: "2022-06-30",
+                jobTitle: "Web Developer"
+            },
+            {
+                companyName: "Example Company 3",
+                employmentType: "Internship",
+                startDate: "2022-03-15",
+                endDate: "2022-09-15",
+                jobTitle: "Junior Designer"
+            }
+        ];
+
+        const experienceListContainer = document.getElementById("experience-list");
+
+        experienceList.forEach((experience) => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+
+            const companyName = document.createElement("span");
+            companyName.classList.add("company-name");
+            companyName.textContent = experience.companyName;
+
+            const employmentType = document.createElement("span");
+            employmentType.classList.add("employment-type");
+            employmentType.textContent = experience.employmentType;
+
+            const jobTitle = document.createElement("span");
+            jobTitle.classList.add("job-title");
+            jobTitle.textContent = experience.jobTitle;
+
+            const dateRange = document.createElement("span");
+            dateRange.classList.add("date-range");
+            dateRange.textContent = `${experience.startDate} - ${experience.endDate}`;
+
+            const deleteButton = document.createElement("div");
+            deleteButton.classList.add("delete-button");
+            deleteButton.innerHTML = '<i class="material-icons">delete</i>';
+
+            card.appendChild(companyName);
+            card.appendChild(employmentType);
+            card.appendChild(jobTitle);
+            card.appendChild(dateRange);
+            card.appendChild(deleteButton);
+            experienceListContainer.appendChild(card);
+        });
+    </script>
+</body>
+
+</html>

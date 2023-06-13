@@ -1,0 +1,99 @@
+/* style.css */
+
+/* Registration Container */
+.registration-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  background-color: #eaf6ff;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Registration Tabs */
+.registration-tabs {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  border: none;
+  background-color: transparent;
+  color: #333;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.tab.active {
+  border-bottom: 2px solid #333;
+}
+
+/* Registration Box */
+.registration-box {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  background-color: #fff;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 50px;
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+input[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+input[type="submit"]:hover {
+  background-color: #555;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 15px;
+  color: #333;
+  text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .registration-box {
+    width: 90%;
+    max-width: 100%;
+  }
+}

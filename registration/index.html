@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div class="registration-container">
+    <div class="registration-tabs">
+      <button class="tab" onclick="openTab(event, 'company')">Company Registration</button>
+      <button class="tab" onclick="openTab(event, 'employee')">Employee Registration</button>
+    </div>
+
+    <div class="registration-box">
+      <div id="company" class="tab-content">
+        <h2>Company Registration</h2>
+        <form id="company-registration-form">
+          <div class="form-group">
+            <label for="company-name">Name:</label>
+            <input type="text" id="company-name" name="company-name" required>
+          </div>
+          <div class="form-group">
+            <label for="industry">Industry:</label>
+            <input type="text" id="industry" name="industry" required>
+          </div>
+          <div class="form-group">
+            <label for="website">Website:</label>
+            <input type="text" id="website" name="website" required>
+          </div>
+          <div class="form-group">
+            <label for="about">About:</label>
+            <textarea id="about" name="about" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="facebook">Facebook Page:</label>
+            <input type="text" id="facebook" name="facebook">
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+          <div class="form-group">
+            <input type="submit" value="Register">
+          </div>
+        </form>
+        <p class="login-link">Already have an account? <a href="file:///C:/Users/Andre/OneDrive/Desktop/employment_graduation_be/login/index.html">Login here</a></p>
+      </div>
+
+      <div id="employee" class="tab-content">
+        <h2>Employee Registration</h2>
+        <!-- Add employee registration form here -->
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

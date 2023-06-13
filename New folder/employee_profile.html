@@ -153,7 +153,8 @@
                         <div class="col s12">
                             <div class="section-header">
                                 <h5 class="section-title">Experiences</h5>
-                                <button class="btn waves-effect waves-light" type="submit" name="action">+</button>
+                                <button id="open-modal-btn" class="btn waves-effect waves-light" type="submit"
+                                    name="action">+</button>
                             </div>
                         </div>
                     </div>
@@ -165,7 +166,40 @@
 
 
         </div>
+    </div>
 
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h4>Add Experience</h4>
+            <form id="experience-form">
+                <div class="input-field">
+                    <input type="text" id="company-name" required>
+                    <label for="company-name">Company Name</label>
+                </div>
+                <div class="input-field">
+                    <input type="text" id="job-title" required>
+                    <label for="job-title">Job Title</label>
+                </div>
+                <div class="input-field">
+                    <select id="employment-type" required>
+                        <option value="" disabled selected>Select Employment Type</option>
+                        <option value="full-time">Full-time</option>
+                        <option value="part-time">Part-time</option>
+                        <option value="contractor">Contractor</option>
+                    </select>
+                    <label for="employment-type">Employment Type</label>
+                </div>
+                <div class="input-field">
+                    <input type="text" class="datepicker" id="start-date" required>
+                    <label for="start-date">Start Date</label>
+                </div>
+                <div class="input-field">
+                    <input type="text" class="datepicker" id="end-date" required>
+                    <label for="end-date">End Date</label>
+                </div>
+                <button type="submit" class="btn">Add Experience</button>
+            </form>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -231,6 +265,17 @@
             card.appendChild(dateRange);
             card.appendChild(deleteButton);
             experienceListContainer.appendChild(card);
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems);
+            var select = document.querySelectorAll('select');
+            M.FormSelect.init(select);
+        });
+
+        document.getElementById('open-modal-btn').addEventListener('click', function () {
+            var instance = M.Modal.getInstance(document.getElementById('modal'));
+            instance.open();
         });
     </script>
 </body>

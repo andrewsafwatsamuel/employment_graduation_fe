@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <style>
+    body {
+      background-color: #eaf2f8;
+      padding: 20px;
+    }
+
+    .job-card {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h5 {
+      margin: 0;
+    }
+
+    p {
+      margin-top: 10px;
+    }
+
+    .btn-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    #jobStatusModal,
+    #editJobModal {
+      max-width: 400px;
+    }
+    .underline {
+      display: inline;
+      border-bottom: 1px solid #708090;
+    }
+    h5,.underline{
+      margin-top: 30px;
+    }
+  </style>
+  <title>Job List</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="job-card">
+    <div >
+      <h5>1. Company Name:</h5>
+      <p id="companyName"></p>
+    </div>
+    <div>
+      <h5>2. Title of the Job:</h5>
+      <p id="jobTitle"></p>
+    </div>
+    <div>
+      <h5>3. Description of the Job:</h5>
+      <p id="jobDescription"></p>
+    </div>
+    <div>
+      <h5>4. Experience Level:</h5>
+      <p id="experienceLevel"></p>
+    </div>
+  </div>
+    <div class="btn-container">
+      <button class="btn" id="applyBtn">Apply</button>
+      <div>
+        <p>Application Status:</p>
+        <p id="applicationStatus">Not submitted</p>
+      </div>
+      <div>
+        <p>Job Status:</p>
+        <p id="jobStatus">Not reviewed</p>
+      </div>
+      <button class="btn modal-trigger" data-target="editJobModal">Edit the Job Details</button>
+      <button class="btn modal-trigger" data-target="jobStatusModal">Change Job Status</button>
+    </div>
+  </div>
+
+  <div id="editJobModal" class="modal">
+    <div class="modal-content">
+      <h4>Edit Job Details</h4>
+      <div class="input-field">
+        <input type="text" id="editJobTitle" placeholder="Enter job title">
+        <label for="editJobTitle">Job Title</label>
+      </div>
+      <div class="input-field">
+        <input type="text" id="editJobDescription" placeholder="Enter job description">
+        <label for="editJobDescription">Job Description</label>
+      </div>
+      <div class="input-field">
+        <select id="editExperienceLevel">
+          <option value="intern">Intern</option>
+          <option value="junior">Junior</option>
+          <option value="mid-level">Mid Level</option>
+          <option value="senior">Senior</option>
+          <option value="lead">Lead</option>
+        </select>
+        <label>Experience Level</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+      <button id="saveJobDetailsBtn" class="waves-effect waves-light btn">Save</button>
+    </div>
+  </div>
+
+  <div id="jobStatusModal" class="modal">
+    <div class="modal-content">
+      <h4>Change Job Status</h4>
+      <div class="input-field">
+        <select id="jobStatusSelect">
+          <option value="open">Job Is Open</option>
+          <option value="closed">Job Is Closed</option>
+        </select>
+        <label>Job Status</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+      <button id="saveJobStatusBtn" class="waves-effect waves-light btn">Save</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      M.AutoInit();
+
+      document.getElementById('companyName').innerText = 'Apple';
+      document.getElementById('jobTitle').innerText = 'Software Engineer';
+      document.getElementById('jobDescription').innerText = generateJobDescription();
+      document.getElementById('experienceLevel').innerText = 'Entry Level';
+
+      const editExperienceLevelSelect = document.getElementById('editExperienceLevel');
+      const jobStatusSelect = document.getElementById('jobStatusSelect');
+
+      M.FormSelect.init(editExperienceLevelSelect);
+      M.FormSelect.init(jobStatusSelect);
+    });
+
+
+    function generateJobDescription() {
+      return 'This is a random job description.';
+    }
+
+    document.getElementById('applyBtn').addEventListener('click', function () {
+      document.getElementById('applicationStatus').innerText = 'Application submitted';
+    });
+
+    const jobStatusModal = document.getElementById('jobStatusModal');
+    const jobStatusSelect = document.getElementById('jobStatusSelect');
+    const saveJobStatusBtn = document.getElementById('saveJobStatusBtn');
+    const jobStatusText = document.getElementById('jobStatus');
+
+    saveJobStatusBtn.addEventListener('click', function () {
+      const selectedStatus = jobStatusSelect.value;
+      jobStatusText.innerText = selectedStatus === 'open' ? 'Job Is Open' : 'Job Is Closed';
+      M.Modal.getInstance(jobStatusModal).close();
+    });
+
+    const editJobModal = document.getElementById('editJobModal');
+    const editJobTitleInput = document.getElementById('editJobTitle');
+    const editJobDescriptionInput = document.getElementById('editJobDescription');
+    const editExperienceLevelSelect = document.querySelector('#editExperienceLevel')
+    const saveJobDetailsBtn = document.getElementById('saveJobDetailsBtn');
+    const jobTitleText = document.getElementById('jobTitle');
+    const jobDescriptionText = document.getElementById('jobDescription');
+    const experienceLevelText = document.getElementById('experienceLevel');
+
+    document.getElementById('editJobModal').addEventListener('click', function () {
+      editJobTitleInput.value = jobTitleText.innerText;
+      editJobDescriptionInput.value = jobDescriptionText.innerText;
+      M.FormSelect.init(editExperienceLevelSelect);
+      M.updateTextFields();
+    });
+
+    saveJobDetailsBtn.addEventListener('click', function () {
+      jobTitleText.innerText = editJobTitleInput.value;
+      jobDescriptionText.innerText = editJobDescriptionInput.value;
+      experienceLevelText.innerText = editExperienceLevelSelect.options[editExperienceLevelSelect.selectedIndex].text;
+      M.Modal.getInstance(editJobModal).close();
+    });
+  </script>
+</body>
+
+</html>

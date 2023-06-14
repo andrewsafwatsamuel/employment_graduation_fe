@@ -1,0 +1,41 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #eaf2f8;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.job-card {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #b1aeae;
+  border-radius: 5px;
+  background: #ffffff;
+  width: 80%;
+  display: flex;
+  cursor: pointer; 
+}
+
+.job-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.job-title,
+.job-company,
+.job-description,
+.job-exp-level {
+  font-size: 20px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.job-exp-level {
+  font-size: 14px;
+  color: #545454;
+  margin-top: 10px;
+}

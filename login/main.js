@@ -6,7 +6,7 @@ var password_input = document.getElementById('password_input');
 var login_button = document.getElementById('login_button')
 
 var login_endpoint = "http://localhost:5000/companies/login";
-var redirect_endpoint = null;
+var redirect_endpoint = '../published_jobs/published_jobs.html';
 
 // Add event listeners to chips
 chips.forEach(function (chip) {
@@ -25,13 +25,14 @@ chips.forEach(function (chip) {
 
 // Handle selected option
 function handleSelectedOption(option) {
-  console.log(option);
   switch (option) {
     case "Company":
-      login_endpoint = 'http://localhost:5000/companies/login'
+      login_endpoint = 'http://localhost:5000/companies/login';
+      redirect_endpoint = '../published_jobs/published_jobs.html';
       break;
     case "Employee":
-      login_endpoint = 'http://127.0.0.1:5000/employees/login'
+      login_endpoint = 'http://localhost:5000/employees/login';
+      redirect_endpoint = '../search-job/search-job.html';
       break;
     default:
     // No op
@@ -41,7 +42,6 @@ function handleSelectedOption(option) {
 // Handle form submission
 loginForm.addEventListener('submit', function (event) {
   event.preventDefault();
-  login_button.classList.add('loading-indicator')
   login();
 
 })
@@ -59,7 +59,7 @@ async function login() {
   if (response.ok) {
     const myJson = await response.json();
     console.log(myJson);
-    //window.location.replace('../search-job/search-job.html');
+    window.location.replace(redirect_endpoint);
   } else {
     console.log(`Error: ${response.status}`);
   }

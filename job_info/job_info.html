@@ -39,11 +39,14 @@
     #editJobModal {
       max-width: 400px;
     }
+
     .underline {
       display: inline;
       border-bottom: 1px solid #708090;
     }
-    h5,.underline{
+
+    h5,
+    .underline {
       margin-top: 30px;
     }
   </style>
@@ -53,23 +56,26 @@
 <body>
   <div class="container">
     <div class="job-card">
-    <div >
-      <h5>1. Company Name:</h5>
-      <p id="companyName"></p>
+      <div>
+        <h5>1. Company Name:</h5>
+        <p id="companyName"></p>
+      </div>
+      <div>
+        <h5>2. Title of the Job:</h5>
+        <p id="jobTitle"></p>
+      </div>
+      <div>
+        <h5>3. Description of the Job:</h5>
+        <p id="jobDescription"></p>
+      </div>
+      <div>
+        <h5>4. Experience Level:</h5>
+        <p id="experienceLevel"></p>
+      </div>
+      <div>
+        <a href="#applicationModal" class="modal-trigger">View Applications</a>
+      </div>
     </div>
-    <div>
-      <h5>2. Title of the Job:</h5>
-      <p id="jobTitle"></p>
-    </div>
-    <div>
-      <h5>3. Description of the Job:</h5>
-      <p id="jobDescription"></p>
-    </div>
-    <div>
-      <h5>4. Experience Level:</h5>
-      <p id="experienceLevel"></p>
-    </div>
-  </div>
     <div class="btn-container">
       <button class="btn" id="applyBtn">Apply</button>
       <div>
@@ -130,6 +136,36 @@
     </div>
   </div>
 
+  <div id="applicationModal" class="modal">
+    <div class="modal-content">
+      <h4>Applicant Information</h4>
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">Name: John Doe</span>
+              <p>Title: Software Engineer</p>
+              <p>Application Status: Accepted</p>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m4">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">Name: Peter Parker</span>
+              <p>Title: Senior Software Engineer</p>
+              <p>Application Status: Interviewing</p>
+            </div>
+          </div>
+        </div>
+        <!-- Add more cards here for additional applicants -->
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -146,7 +182,6 @@
       M.FormSelect.init(editExperienceLevelSelect);
       M.FormSelect.init(jobStatusSelect);
     });
-
 
     function generateJobDescription() {
       return 'This is a random job description.';

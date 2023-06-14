@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="company profile style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="section">
+          <h5>Company Information</h5>
+          <div class="input-field">
+            <input type="text" id="name" value="Apple" disabled>
+            <label for="name">Name</label>
+          </div>
+          <div class="input-field">
+            <textarea id="bio" class="materialize-textarea"
+              disabled>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque tristique tristique. Vivamus eu maximus leo. In hac habitasse platea dictumst.</textarea>
+            <label for="bio">Bio</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="website" value="www.apple.com" disabled>
+            <label for="website">Website</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="industry" value="Electronics" disabled>
+            <label for="industry">Industry</label>
+          </div>
+          <div class="input-field">
+            <input type="email" id="email" value="info@apple.com" disabled>
+            <label for="email">Email</label>
+          </div>
+          <button class="btn waves-effect waves-light custom" id="update-info-btn">Update Info</button>
+        </div>
+      </div>
+      <div class="col s12 m6">
+        <div class="section">
+          <h5>Phone Numbers</h5>
+          <ul id="phone-numbers-list" class="collection">
+            <!-- Phone numbers will be added dynamically using JavaScript -->
+          </ul>
+          <div class="input-field">
+            <input type="text" id="new-phone-number">
+            <label for="new-phone-number">New Phone Number</label>
+          </div>
+          <button class="btn waves-effect waves-light" id="add-phone-number-btn">Add Phone Number</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h4>Edit Company Information</h4>
+      <div class="input-field">
+        <input type="text" id="edit-name">
+        <label for="edit-name">Name</label>
+      </div>
+      <div class="input-field">
+        <textarea id="edit-bio" class="materialize-textarea"></textarea>
+        <label for="edit-bio">Bio</label>
+      </div>
+      <div class="input-field">
+        <input type="text" id="edit-website">
+        <label for="edit-website">Website</label>
+      </div>
+      <div class="input-field">
+        <input type="text" id="edit-industry">
+        <label for="edit-industry">Industry</label>
+      </div>
+      <div class="input-field">
+        <input type="email" id="edit-email">
+        <label for="edit-email">Email</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-close waves-effect waves-light btn-flat" id="save-btn">Save</button>
+    </div>
+  </div>
+
+  <!-- Change Password Modal -->
+  <div id="change-password-modal" class="modal">
+    <div class="modal-content">
+      <h4>Change Password</h4>
+      <div class="input-field">
+        <input type="password" id="old-password">
+        <label for="old-password">Old Password</label>
+      </div>
+      <div class="input-field">
+        <input type="password" id="new-password">
+        <label for="new-password">New Password</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-close waves-effect waves-light btn-flat" id="change-password-save-btn">Save</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="company profile js.js">
+  </script>
+</body>
+
+</html>

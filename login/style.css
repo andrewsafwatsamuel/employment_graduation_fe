@@ -71,11 +71,6 @@ body {
   margin-top: 10px;
 }
 
-.register-button a {
-  color: #2632FF;
-  text-decoration: underline;
-}
-
 @media (max-width: 768px) {
   .login-box {
     width: 90%;

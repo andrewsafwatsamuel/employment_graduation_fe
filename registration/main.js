@@ -37,3 +37,22 @@ document.getElementById("company-registration-form").addEventListener("submit", 
   console.log("Form submitted!");
   console.log("Form Data:", Object.fromEntries(formData.entries()));
 });
+
+
+document.getElementById("employee-registration-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  var form = e.target;
+  var formData = new FormData(form);
+
+  // Retrieve form data and perform further actions (e.g., AJAX request)
+  console.log("Form submitted!");
+  console.log("Form Data:", Object.fromEntries(formData.entries()));
+});
+
+document.getElementById("login_redirect_employee").addEventListener("click", function() {
+  window.location.replace("../login/index.html");
+});
+
+document.getElementById("login_redirect_company").addEventListener("click", function() {
+  window.location.replace("../login/index.html");
+});

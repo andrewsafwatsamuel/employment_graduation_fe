@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registration</title>
   <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="../styles.css">
 </head>
+
 <body>
   <div class="registration-container">
     <div class="registration-tabs">
@@ -49,16 +52,47 @@
             <input type="submit" value="Register">
           </div>
         </form>
-        <p class="login-link">Already have an account? <a href="file:///C:/Users/Andre/OneDrive/Desktop/employment_graduation_be/login/index.html">Login here</a></p>
+        <p class="login-link">Already have an account? <a id="login_redirect_company" class="link">Login here</a></p>
       </div>
 
       <div id="employee" class="tab-content">
         <h2>Employee Registration</h2>
-        <!-- Add employee registration form here -->
+        <form id="employee-registration-form">
+          <div class="form-group">
+            <label for="employee-name">Name:</label>
+            <input type="text" id="employee-name" name="employee-name" required>
+          </div>
+          <div class="form-group">
+            <label for="employee-bio">Bio:</label>
+            <textarea id="employee-bio" name="employee-bio" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="employee-phone">Phone:</label>
+            <input type="tel" id="employee-phone" name="employee-phone" required>
+          </div>
+          <div class="form-group">
+            <label for="employee-email">Email:</label>
+            <input type="email" id="employee-email" name="employee-email" required>
+          </div>
+          <div class="form-group">
+            <label for="employee-title">Title:</label>
+            <input type="text" id="employee-title" name="employee-title" required>
+          </div>
+          <div class="form-group">
+            <label for="employee-password">Password:</label>
+            <input type="password" id="employee-password" name="employee-password" required>
+          </div>
+          <div class="form-group">
+            <input type="submit" value="Register">
+          </div>
+        </form>
+        <p class="login-link">Already have an account? <a id="login_redirect_employee" class="link">Login here</a></p>
       </div>
+      
     </div>
   </div>
 
   <script src="main.js"></script>
 </body>
+
 </html>

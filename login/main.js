@@ -64,3 +64,7 @@ async function login() {
     console.log(`Error: ${response.status}`);
   }
 }
+
+document.getElementById("registration_button").addEventListener("click", function() {
+  window.location.replace("../registration/index.html");
+});

@@ -5,6 +5,9 @@ console.log(sessionStorage.getItem('session_data'))
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    const phoneNumbersList = document.getElementById('phone-numbers-list');
+
+
     // Initialize modal
     const modal = document.getElementById('modal'); // getting the modal id from the html
     const modalInstance = M.Modal.init(modal); // intilize the modal from the google MD and save it to use it later
@@ -25,12 +28,17 @@ document.addEventListener('DOMContentLoaded', () => {
         fbpageField.value = json["fbPage"];
         industryField.value = json["industry"];
         emailField.value = json["email"]
+        json['company_phone'].forEach(element => {
+            draw_phone_item(phoneNumbersList, element)
+        });
         document.getElementById('edit-name').value = nameField.value;
         document.getElementById('edit-bio').value = bioField.value;
         document.getElementById('edit-website').value = websiteField.value;
         document.getElementById('edit-fbpage').value = fbpageField.value;
         document.getElementById('edit-industry').value = industryField.value;
         document.getElementById('edit-email').value = emailField.value;
+
+        console.log(JSON.stringify(json));
     })
 
 
@@ -53,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fbpageField.value = document.getElementById('edit-fbpage').value;
         industryField.value = document.getElementById('edit-industry').value;
         emailField.value = document.getElementById('edit-email').value;
-        update_company_profile(nameField.value, industryField.value, emailField.value, fbpageField.value, bioField.value, websiteField.value,(json) => {
+        update_company_profile(nameField.value, industryField.value, emailField.value, fbpageField.value, bioField.value, websiteField.value, (json) => {
             nameField.value = json["name"];
             bioField.value = json["about"];
             websiteField.value = json["website"];
@@ -86,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ChangePasswordBtn.style.display = "none";
     }
     // Dynamic list for phone numbers
-    const phoneNumbersList = document.getElementById('phone-numbers-list');
     const addPhoneNumberBtn = document.getElementById('add-phone-number-btn');
     const newPhoneNumberInput = document.getElementById('new-phone-number');
 
@@ -97,26 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const phoneNumber = newPhoneNumberInput.value;
         add_company_phone(phoneNumber, (json) => {
             if (phoneNumber !== '') {
-            const listItem = document.createElement('li');
-            listItem.classList.add('collection-item', 'phone-number-item');
-
-            const phoneNumberElement = document.createElement('span');
-            phoneNumberElement.classList.add('phone-number');
-            phoneNumberElement.textContent = phoneNumber;
-
-            const removeBtn = document.createElement('i');
-            removeBtn.classList.add('material-icons', 'remove-btn');
-            removeBtn.textContent = 'close';
-
-            removeBtn.addEventListener('click', () => {
-                listItem.remove();
-            });
-
-            listItem.appendChild(phoneNumberElement);
-            listItem.appendChild(removeBtn);
-            phoneNumbersList.appendChild(listItem);
-            newPhoneNumberInput.value = '';
-        }
+                draw_phone_item(phoneNumbersList, phoneNumber)
+                newPhoneNumberInput.value = '';
+            }
 
         })
 
@@ -244,7 +234,7 @@ async function add_company_phone(new_phone, on_success) {
 
 }
 //remove_company_phone('01154875268')
-async function remove_company_phone(remove_phone) {
+async function remove_company_phone(remove_phone, on_success) {
     var formData = new FormData();
     formData.append('phone', remove_phone);
     const response = await fetch('http://localhost:5000/companies/remove-phone',
@@ -257,11 +247,34 @@ async function remove_company_phone(remove_phone) {
         });
     if (response.ok) {
         const published_jobs = await response.json(); // get the json of the jobs from the response endpoint
-        console.log(JSON.stringify(published_jobs))
+        on_success()
     } else {
         const error_response = await response.text();
 
         console.log(`Error: ${error_response}`);
     }
 
+}
+
+function draw_phone_item(phoneNumbersList, phoneNumber) {
+    const listItem = document.createElement('li');
+    listItem.classList.add('collection-item', 'phone-number-item');
+
+    const phoneNumberElement = document.createElement('span');
+    phoneNumberElement.classList.add('phone-number');
+    phoneNumberElement.textContent = phoneNumber;
+
+    const removeBtn = document.createElement('i');
+    removeBtn.classList.add('material-icons', 'remove-btn');
+    removeBtn.textContent = 'close';
+
+    removeBtn.addEventListener('click', () => {
+        remove_company_phone(phoneNumber, () => {
+            listItem.remove();
+        })
+    });
+
+    listItem.appendChild(phoneNumberElement);
+    listItem.appendChild(removeBtn);
+    phoneNumbersList.appendChild(listItem);
 }

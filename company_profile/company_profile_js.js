@@ -131,9 +131,9 @@ function draw_change_password(updateInfoBtn) {
     changePasswordSaveBtn.addEventListener('click', () => {
         const oldPassword = document.getElementById('old-password').value;
         const newPassword = document.getElementById('new-password').value;
-        console.log('Old Password:', oldPassword);
-        console.log('New Password:', newPassword);
-        changePasswordModalInstance.close();
+        update_company_password(oldPassword, newPassword, () => {
+            changePasswordModalInstance.close();
+        });
     });
 }
 
@@ -187,8 +187,8 @@ async function update_company_profile(name, industry, email, fbPage, about, webs
     }
 
 }
-//update_company_password('anamostafA@123', 'mostafA@123')
-async function update_company_password(old_password, new_password) {
+
+async function update_company_password(old_password, new_password, on_success) {
     var formData = new FormData();
     formData.append('old-password', old_password);
     formData.append('new-password', new_password);
@@ -201,8 +201,9 @@ async function update_company_password(old_password, new_password) {
             body: formData
         });
     if (response.ok) {
-        const published_jobs = await response.json(); // get the json of the jobs from the response endpoint
-        console.log(JSON.stringify(published_jobs))
+        const update_password_response = await response.text(); // get the json of the jobs from the response endpoint
+        console.log(update_password_response)
+        on_success()
     } else {
         const error_response = await response.text();
 

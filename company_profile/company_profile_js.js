@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    const ChangePasswordBtn = document.getElementById('add-phone-number-btn')
+    //const ChangePasswordBtn = document.getElementById('add-phone-number-btn')
     // Open modal when "Update Info" button is clicked
     const updateInfoBtn = document.getElementById('update-info-btn');
     // 
@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+    // add company phone to the dynamic list
 
 
 
@@ -89,9 +90,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const addPhoneNumberBtn = document.getElementById('add-phone-number-btn');
     const newPhoneNumberInput = document.getElementById('new-phone-number');
 
+
+
+    // adds phone numbers in the html
     addPhoneNumberBtn.addEventListener('click', () => {
         const phoneNumber = newPhoneNumberInput.value;
-        if (phoneNumber !== '') {
+        add_company_phone(phoneNumber, (json) => {
+            if (phoneNumber !== '') {
             const listItem = document.createElement('li');
             listItem.classList.add('collection-item', 'phone-number-item');
 
@@ -112,6 +117,9 @@ document.addEventListener('DOMContentLoaded', () => {
             phoneNumbersList.appendChild(listItem);
             newPhoneNumberInput.value = '';
         }
+
+        })
+
     });
 });
 
@@ -214,7 +222,7 @@ async function update_company_password(old_password, new_password) {
 }
 
 //add_company_phone('01154875268')
-async function add_company_phone(new_phone) {
+async function add_company_phone(new_phone, on_success) {
     var formData = new FormData();
     formData.append('phone', new_phone);
     const response = await fetch('http://localhost:5000/companies/add-phone',
@@ -226,8 +234,8 @@ async function add_company_phone(new_phone) {
             body: formData
         });
     if (response.ok) {
-        const published_jobs = await response.json(); // get the json of the jobs from the response endpoint
-        console.log(JSON.stringify(published_jobs))
+        const add_phone_response = await response.json(); // get the json of the jobs from the response endpoint
+        on_success()
     } else {
         const error_response = await response.text();
 

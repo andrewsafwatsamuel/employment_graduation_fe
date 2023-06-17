@@ -5,31 +5,71 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
 
     <title>Job Search | HireWire</title>
-    <link rel="stylesheet" href="published_jobs.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="published_jobs.css">
 </head>
 
 <body>
     <nav>
-        <ul>
-            <li><a href="../search-job/search-job.html">Home</a></li>
-            <li><a href="../company_profile/company_profile.html" id="profile-btn">Profile</a></li>
-            <button id="modal-btn-cjobs">Create A New Job</button>
-        </ul>
+        <div class="nav">
+            <ul>
+                <li><a href="../search-job/search-job.html">Home</a></li>
+                <li><a href="../company_profile/company_profile.html" id="profile-btn">Profile</a></li>
+            </ul>
+            <a href="#modal" class="right modal-trigger transparent-btn">Create A New Job</a>
+        </div>
     </nav>
 
     <div class="container">
-
         <div class="row">
             <div id="results"></div>
         </div>
-
     </div>
 
+    <div id="editJobModal" class="modal">
+        <div class="modal-content">
+            <h4>Edit Job Details</h4>
+            <div class="input-field">
+                <input type="text" id="editJobTitle" placeholder="Enter job title">
+                <label for="editJobTitle">Job Title</label>
+            </div>
+            <div class="input-field">
+                <input type="text" id="editJobDescription" placeholder="Enter job description">
+                <label for="editJobDescription">Job Description</label>
+            </div>
+            <div class="input-field">
+                <select id="editExperienceLevel">
+                    <option value="" disabled selected>Select Experience Level</option>
+                    <option >Intern</option>
+                    <option >Junior</option>
+                    <option >Mid Level</option>
+                    <option >Senior</option>
+                    <option >Lead</option>
+                </select>
+                <label>Experience Level</label>
+            </div>
+            <div class="input-field">
+                <select id="editJobStatus">
+                    <option value="" disabled selected>Select Job Status</option>
+                    <option >Open</option>
+                    <option >Closed</option>
+                </select>
+                <label>Job Status</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <button id="saveJobDetailsBtn" class="waves-effect waves-light btn">Create</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        
+    </script>
     <script src="published_jobs.js"></script>
 </body>
 

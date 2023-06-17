@@ -39,6 +39,11 @@ body {
   color: #545454;
   margin-top: 10px;
 }
+.transparent-btn {
+  background-color: transparent ;
+  border: none;
+  margin-right: 40px;
+}
 
 nav {
   background-color: #333;
@@ -65,6 +70,8 @@ nav ul li a {
 nav ul li a:hover {
   background-color: #555;
 }
+
+
 
 
 .empty-response {

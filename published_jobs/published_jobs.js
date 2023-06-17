@@ -3,28 +3,41 @@ const resultsDiv = document.getElementById("results"); // holding the result div
 const session_data = JSON.parse(sessionStorage.getItem('session_data')) //getting the stored user session to
 get_published_jobs(session_data['auth_token']) // getting the auth token from the session data
 
-async function get_published_jobs(auth_token) {
-	const response = await fetch('http://localhost:5000/companies/published-jobs', {
-		method: 'GET',
-		headers: {
-			'Authorization': auth_token
-		}
+const jobTitleField = document.getElementById('editJobTitle')
+const jobDescriptionField = document.getElementById('editJobDescription')
+const jobExperiencesField = document.getElementById('editExperienceLevel')
+const jobStatusField = document.getElementById('editJobStatus')
+const createJobBtn = document.getElementById("saveJobDetailsBtn")
+const modal = document.getElementById('editJobModal');
+const modalInstance = M.Modal.init(modal);
+
+// Modal initialization of the Create New Job Button
+document.addEventListener('DOMContentLoaded', function () {
+	const modalBtn = document.querySelector('.modal-trigger');
+
+	modalBtn.addEventListener('click', function () {
+		modalInstance.open();
 	});
-	if (response.ok) {
-		const published_jobs = await response.json(); // get the json of the jobs from the response endpoint
-		if (published_jobs.hasOwnProperty('message')) { // if there is message then no jobs found
-			no_jobs_found()
-		}
-		else {
-			fill_jobs(published_jobs) // draw the html cards jobs
-		}
-	} else {
-		const error_response = await response.text();
 
-		console.log(`Error: ${error_response}`);
-	}
+	// Initialize the dropdown select
+	const selectElement = document.getElementById('editExperienceLevel');
+	const selectInstance = M.FormSelect.init(selectElement);
+	const selectElementJob = document.getElementById('editJobStatus')
+	const selectinstanceJob = M.FormSelect.init(selectElementJob)
+});
 
-}
+createJobBtn.addEventListener("click", () => {
+	add_new_job(jobExperiencesField.value,
+				jobTitleField.value,
+				jobStatusField.value.toLowerCase() == 'open'? 1 : 0,
+				jobDescriptionField.value, () => {
+					location.reload();
+					modalInstance.close()
+				})
+	console.log(jobStatusField.value)
+	
+
+})
 
 function fill_jobs(jobs) {
 	jobs.forEach((job) => {
@@ -73,4 +86,57 @@ function no_jobs_found() {
 
 	jobCard.appendChild(message);
 	resultsDiv.appendChild(jobCard);
+}
+
+
+async function get_published_jobs(auth_token) {
+	const response = await fetch('http://localhost:5000/companies/published-jobs', {
+		method: 'GET',
+		headers: {
+			'Authorization': auth_token
+		}
+	});
+	if (response.ok) {
+		const published_jobs = await response.json(); // get the json of the jobs from the response endpoint
+		if (published_jobs.hasOwnProperty('message')) { // if there is message then no jobs found
+			no_jobs_found()
+		}
+		else {
+			fill_jobs(published_jobs) // draw the html cards jobs
+		}
+	} else {
+		const error_response = await response.text();
+
+		console.log(`Error: ${error_response}`);
+	}
+
+}
+
+// add_new_job('Intern', 'Senior Software Engineer', 1, 'asdwqeoasjfnaasdwae', () => {
+// 	console.log('Success')
+// })
+
+async function add_new_job(exp_level, title, status, description, on_success) {
+    var formData = new FormData();
+    formData.append('exp_level', exp_level);
+	formData.append('title', title)
+	formData.append('status', status)
+	formData.append('description', description)
+    const response = await fetch('http://localhost:5000/job-listing/add-new-job',
+        {
+            method: 'POST',
+            headers: {
+                'Authorization': session_data['auth_token']
+            },
+            body: formData
+        });
+    if (response.ok) {
+        const add_phone_response = await response.json(); // get the json of the jobs from the response endpoint
+        on_success()
+    } else {
+        const error_response = await response.text();
+
+        console.log(`Error: ${error_response}`);
+    }
+
 }

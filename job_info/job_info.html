@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="job_info.css">
+  <title>Job List</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="job-card">
+      <div id="company_name_container">
+        <h5>Company Name:</h5>
+        <p id="companyName"></p>
+      </div>
+    </div>
+    <div class="job-card">
+      <div>
+        <h5>jOB Title:</h5>
+        <p id="jobTitle"></p>
+      </div>
+    </div>
+    <div class="job-card">
+      <div>
+        <h5>Job Description:</h5>
+        <p id="jobDescription"></p>
+      </div>
+    </div>
+    <div class="job-card">
+      <div>
+        <h5>Experience Level:</h5>
+        <p id="experienceLevel"></p>
+      </div>
+    </div>
+    <div id="view_applications_btn">
+      <a href="#applicationModal" class="modal-trigger">View Applications</a>
+    </div>
+
+    <div class="btn-container">
+      <button class="btn" id="applyBtn">Apply</button>
+      <div id="application_status_container">
+        <p>Application Status:</p>
+        <p id="applicationStatus">Not submitted</p>
+      </div>
+      <div>
+        <p>Job Status:</p>
+        <p id="jobStatus"></p>
+      </div>
+      <button id="edit_job_details_btn" class="btn modal-trigger" data-target="editJobModal">Edit the Job
+        Details</button>
+      <button id="toggle_job_status_btn" class="btn">Change Job Status</button>
+    </div>
+  </div>
+
+  <div id="editJobModal" class="modal">
+    <div class="modal-content">
+      <h4>Edit Job Details</h4>
+      <div class="input-field">
+        <input type="text" id="editJobTitle" placeholder="Enter job title">
+        <label for="editJobTitle">Job Title</label>
+      </div>
+      <div class="input-field">
+        <textarea id="editJobDescription" class="materialize-textarea" placeholder="Enter job description"
+          type="text"></textarea>
+        <label for="editJobDescription">Job Description</label>
+      </div>
+      <div id="haha" class="input-field">
+        <select id="editExperienceLevel">
+          <option value="">Select Experience Level</option>
+          <option>Intern</option>
+          <option>Junior</option>
+          <option>Mid Level</option>
+          <option>Senior</option>
+          <option>Lead</option>
+        </select>
+        <label>Experience Level</label>
+      </div>
+      <div class="input-field">
+        <select id="editJobStatus">
+            <option value="" disabled selected>Select Job Status</option>
+            <option >Open</option>
+            <option >Closed</option>
+        </select>
+        <label>Job Status</label>
+    </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+      <button id="saveJobDetailsBtn" class="waves-effect waves-light btn">Create</button>
+    </div>
+  </div>
+
+  <div id="applicationModal" class="modal">
+    <div class="modal-content">
+      <h4>Applicant Information</h4>
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">Name: John Doe</span>
+              <p>Title: Software Engineer</p>
+              <p>Application Status: Accepted</p>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m4">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">Name: Peter Parker</span>
+              <p>Title: Senior Software Engineer</p>
+              <p>Application Status: Interviewing</p>
+            </div>
+          </div>
+        </div>
+        <!-- Add more cards here for additional applicants -->
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="job_info.js"></script>
+</body>
+
+</html>

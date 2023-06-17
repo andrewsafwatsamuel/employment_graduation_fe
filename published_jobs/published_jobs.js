@@ -45,7 +45,8 @@ function fill_jobs(jobs) {
 		jobCard.classList.add("job-card"); // apply the css style on the card
 
 		jobCard.addEventListener("click", () => {
-			window.location.href = '../job_info/job_info.html?id=' + job['id'] // give it to the job details page to view the job descriptions
+			const jsonString = JSON.stringify(job);
+			window.location.href = '../job_info/job_info.html?job=' + encodeURIComponent(jsonString); // give it to the job details page to view the job descriptions
 		});
 
 		const jobDetails = document.createElement("div"); // creating a new div in the Parent div (Job card)

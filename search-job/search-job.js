@@ -29,6 +29,11 @@ async function getJobs(seachKey) {
 			const jobCard = document.createElement('div');
 			jobCard.classList.add('job-card');
 
+			jobCard.addEventListener("click", () => {
+				const jsonString = JSON.stringify(job);
+				window.location.href = '../job_info/job_info.html?job=' + encodeURIComponent(jsonString); // give it to the job details page to view the job descriptions
+			});
+
 			const jobTitle = document.createElement('div');
 			jobTitle.classList.add('job-title');
 			jobTitle.textContent = job.title;

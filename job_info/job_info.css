@@ -1,0 +1,42 @@
+body {
+      background-color: #eaf2f8;
+      padding: 20px;
+    }
+
+    .job-card {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h5 {
+      margin: 0;
+    }
+
+    p {
+      margin-top: 10px;
+    }
+
+    .btn-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    #jobStatusModal,
+    #editJobModal {
+      max-width: 400px;
+    }
+
+    .underline {
+      display: inline;
+      border-bottom: 1px solid #708090;
+    }
+
+    h5,
+    .underline {
+      margin-top: 30px;
+    }

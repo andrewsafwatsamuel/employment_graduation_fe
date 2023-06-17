@@ -50,7 +50,8 @@
         <p>Job Status:</p>
         <p id="jobStatus"></p>
       </div>
-      <button id="edit_job_details_btn" class="btn modal-trigger" data-target="editJobModal">Edit the Job Details</button>
+      <button id="edit_job_details_btn" class="btn modal-trigger" data-target="editJobModal">Edit the Job
+        Details</button>
       <button id="toggle_job_status_btn" class="btn">Change Job Status</button>
     </div>
   </div>
@@ -63,23 +64,33 @@
         <label for="editJobTitle">Job Title</label>
       </div>
       <div class="input-field">
-        <input type="text" id="editJobDescription" placeholder="Enter job description">
+        <textarea id="editJobDescription" class="materialize-textarea" placeholder="Enter job description"
+          type="text"></textarea>
         <label for="editJobDescription">Job Description</label>
       </div>
-      <div class="input-field">
+      <div id="haha" class="input-field">
         <select id="editExperienceLevel">
-          <option value="intern">Intern</option>
-          <option value="junior">Junior</option>
-          <option value="mid-level">Mid Level</option>
-          <option value="senior">Senior</option>
-          <option value="lead">Lead</option>
+          <option value="">Select Experience Level</option>
+          <option>Intern</option>
+          <option>Junior</option>
+          <option>Mid Level</option>
+          <option>Senior</option>
+          <option>Lead</option>
         </select>
         <label>Experience Level</label>
       </div>
+      <div class="input-field">
+        <select id="editJobStatus">
+            <option value="" disabled selected>Select Job Status</option>
+            <option >Open</option>
+            <option >Closed</option>
+        </select>
+        <label>Job Status</label>
+    </div>
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-      <button id="saveJobDetailsBtn" class="waves-effect waves-light btn">Save</button>
+      <button id="saveJobDetailsBtn" class="waves-effect waves-light btn">Create</button>
     </div>
   </div>
 

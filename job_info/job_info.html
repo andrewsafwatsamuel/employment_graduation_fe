@@ -13,38 +13,45 @@
 <body>
   <div class="container">
     <div class="job-card">
-      <div>
-        <h5>1. Company Name:</h5>
+      <div id="company_name_container">
+        <h5>Company Name:</h5>
         <p id="companyName"></p>
       </div>
+    </div>
+    <div class="job-card">
       <div>
-        <h5>2. Title of the Job:</h5>
+        <h5>jOB Title:</h5>
         <p id="jobTitle"></p>
       </div>
+    </div>
+    <div class="job-card">
       <div>
-        <h5>3. Description of the Job:</h5>
+        <h5>Job Description:</h5>
         <p id="jobDescription"></p>
       </div>
+    </div>
+    <div class="job-card">
       <div>
-        <h5>4. Experience Level:</h5>
+        <h5>Experience Level:</h5>
         <p id="experienceLevel"></p>
       </div>
-      <div>
-        <a href="#applicationModal" class="modal-trigger">View Applications</a>
-      </div>
     </div>
+    <div id="view_applications_btn">
+      <a href="#applicationModal" class="modal-trigger">View Applications</a>
+    </div>
+
     <div class="btn-container">
       <button class="btn" id="applyBtn">Apply</button>
-      <div>
+      <div id="application_status_container">
         <p>Application Status:</p>
         <p id="applicationStatus">Not submitted</p>
       </div>
       <div>
         <p>Job Status:</p>
-        <p id="jobStatus">Not reviewed</p>
+        <p id="jobStatus"></p>
       </div>
-      <button class="btn modal-trigger" data-target="editJobModal">Edit the Job Details</button>
-      <button class="btn modal-trigger" data-target="jobStatusModal">Change Job Status</button>
+      <button id="edit_job_details_btn" class="btn modal-trigger" data-target="editJobModal">Edit the Job Details</button>
+      <button id="toggle_job_status_btn" class="btn">Change Job Status</button>
     </div>
   </div>
 
@@ -73,23 +80,6 @@
     <div class="modal-footer">
       <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
       <button id="saveJobDetailsBtn" class="waves-effect waves-light btn">Save</button>
-    </div>
-  </div>
-
-  <div id="jobStatusModal" class="modal">
-    <div class="modal-content">
-      <h4>Change Job Status</h4>
-      <div class="input-field">
-        <select id="jobStatusSelect">
-          <option value="open">Job Is Open</option>
-          <option value="closed">Job Is Closed</option>
-        </select>
-        <label>Job Status</label>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-      <button id="saveJobStatusBtn" class="waves-effect waves-light btn">Save</button>
     </div>
   </div>
 

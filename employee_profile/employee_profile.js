@@ -1,10 +1,19 @@
 const stored_user_session = JSON.parse(sessionStorage.getItem("session_data"));
 const is_employee = stored_user_session['user_type'].toLowerCase() == 'employee'
 
-const btn_add_experience = document.getElementById('open-modal-btn');
+const btn_open_add_experience = document.getElementById('open-modal-btn');
+const add_exp_modal = document.getElementById('modal');
+const add_exp_modal_instance = M.Modal.init(modal);
 const change_password_container = document.getElementById('change_password');
 const btn_update_profile = document.getElementById('btn-update-profile');
 const btn_update_profile_save = document.getElementById('update-profile-save-button')
+
+const bin_add_experience = document.getElementById('btn_add_experience')
+const add_experience_company_name_input = document.getElementById('company-name-input')
+const add_experience_job_title_input = document.getElementById('job-title-input')
+const add_experience_employment_type_input = document.getElementById('employment-type-input')
+const add_experience_start_date_input = document.getElementById('start-date-input')
+const add_experience_end_date_input = document.getElementById('end-date-input')
 
 const name_field = document.getElementById('name')
 const bio_field = document.getElementById('bio')
@@ -32,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
         title_input.value = json['title']
         phone_input.value = json['phone']
         email_input.value = json['email']
+        draw_experiences(json['experience'])
     })
 });
 
@@ -54,7 +64,7 @@ btn_update_profile_save.addEventListener('click', () => {
 
 if (!is_employee) {
     btn_update_profile.style.display = 'none';
-    btn_add_experience.style.display = 'none';
+    btn_open_add_experience.style.display = 'none';
 }
 
 btn_update_profile.addEventListener('click', () => {
@@ -68,56 +78,63 @@ if (is_employee) {
 
 const experienceListContainer = document.getElementById("experience-list");
 
-const experienceList = [
-    {
-        companyName: "Example Company 1",
-        employmentType: "Full-time",
-        startDate: "2020-01-01",
-        endDate: "2021-12-31",
-        jobTitle: "Software Engineer"
-    },
-    {
-        companyName: "Example Company 2",
-        employmentType: "Part-time",
-        startDate: "2019-05-01",
-        endDate: "2022-06-30",
-        jobTitle: "Web Developer"
-    },
-    {
-        companyName: "Example Company 3",
-        employmentType: "Internship",
-        startDate: "2022-03-15",
-        endDate: "2022-09-15",
-        jobTitle: "Junior Designer"
-    }
-];
 
-experienceList.forEach((experience) => {
+
+function draw_experiences(experienceList) {
+    experienceList.forEach((experience) => {
+        draw_experience_element(experience);
+    });
+}
+
+function draw_experience_element(experience) {
     const card = document.createElement("div");
     card.classList.add("card");
 
     const companyName = document.createElement("span");
     companyName.classList.add("company-name");
-    companyName.textContent = experience.companyName;
+    companyName.textContent = experience['company_name'];
 
     const employmentType = document.createElement("span");
     employmentType.classList.add("employment-type");
-    employmentType.textContent = experience.employmentType;
+    const emp_type = experience['employment_type']
+    employmentType.textContent = get_employment_type(emp_type);
 
     const jobTitle = document.createElement("span");
     jobTitle.classList.add("job-title");
-    jobTitle.textContent = experience.jobTitle;
-
-    const dateRange = document.createElement("span");
-    dateRange.classList.add("date-range");
-    dateRange.textContent = `${experience.startDate} - ${experience.endDate}`;
-
-
+    jobTitle.textContent = experience['title'];
 
     card.appendChild(companyName);
     card.appendChild(employmentType);
     card.appendChild(jobTitle);
-    card.appendChild(dateRange);
+
+    // Add start_date and end_date elements in a new row
+    const dateRangeRow = document.createElement("div");
+    dateRangeRow.classList.add("date-range");
+    dateRangeRow.style.display = "flex";
+    dateRangeRow.style.flexDirection = "row";
+
+    const start_date = document.createElement("span");
+    start_date.classList.add("date-range");
+    const date = new Date(experience['start_date']);
+    const options = { month: 'short', year: 'numeric' };
+    start_date.textContent = 'Start : ' + date.toLocaleDateString('en-US', options);
+
+    const end_date_element = document.createElement("span");
+    jobTitle.classList.add("date-range");
+    const end_date_json = experience['end_date']
+    if (end_date_json != null) {
+        const date_end = new Date(end_date_json);
+        const end_date_options = { month: 'short', year: 'numeric' };
+        end_date_element.textContent = ' - End : ' + date.toLocaleDateString('en-US', end_date_options);
+
+    } else {
+        end_date_element.textContent = ' - Present';
+    }
+
+    dateRangeRow.appendChild(start_date);
+    dateRangeRow.appendChild(end_date_element);
+
+    card.appendChild(dateRangeRow);
 
     if (is_employee) {
         const deleteButton = document.createElement("div");
@@ -127,19 +144,98 @@ experienceList.forEach((experience) => {
     }
 
     experienceListContainer.appendChild(card);
+}
+
+function get_employment_type(type) {
+    switch (type) {
+        case 0:
+            return "Full time";
+
+        case 1:
+            return "Prat time";
+
+        case 2:
+            return "Contractor";
+        default:
+            return null;
+    }
+}
+
+btn_open_add_experience.addEventListener('click', function () {
+    add_exp_modal_instance.open()
+
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    var elems = document.querySelectorAll('.modal');
-    var instances = M.Modal.init(elems);
-    var select = document.querySelectorAll('select');
-    M.FormSelect.init(select);
-});
+bin_add_experience.addEventListener('click', () => {
+    console.log("kjsdlfhlkjsdahflkjsdahfaslkjfhsalkdjfhlkjsdafhlka")
+    const company_name = add_experience_company_name_input.value;
+    const job_title = add_experience_job_title_input.value
+    const employment_type = employement_type_literal_to_int(add_experience_employment_type_input.value)
+    const experience_start_date = get_date(add_experience_start_date_input.value)
+    const experience_start_date_mysql = to_mysql_date(experience_start_date)
+    const experience_end_date = get_date(add_experience_end_date_input.value)
+    const experience_end_date_mysql = to_mysql_date(experience_end_date)
+    const is_valid_end_date = (experience_end_date != null) && (experience_start_date != null) && (experience_end_date.getTime() > experience_start_date.getTime())
+    toggle_invalid_end_date(is_valid_end_date);
+    if (is_valid_end_date) {
+        add_employee_experience(
+            company_name,
+            job_title,
+            experience_start_date_mysql,
+            experience_end_date_mysql,
+            employment_type,
+            () => {
+                const experience = {
+                    "company_name": company_name,
+                    "employment_type": employment_type,
+                    "end_date": experience_end_date_mysql,
+                    "start_date": experience_start_date_mysql,
+                    "title": job_title
+                }
+                draw_experience_element(experience)
+                add_exp_modal_instance.close()
+            })
+    }
+})
 
-btn_add_experience.addEventListener('click', function () {
-    var instance = M.Modal.getInstance(document.getElementById('modal'));
-    instance.open();
-});
+function to_mysql_date(parsed_date) {
+    if (parsed_date == null) {
+        return parsed_date;
+    } else {
+        return parsed_date.toISOString().split('T')[0];
+    }
+}
+
+function get_date(date_tring) {
+    if (date_tring == null || date_tring.trim() == "") {
+        return null;
+    } else {
+        return new Date(date_tring);
+    }
+}
+
+function toggle_invalid_end_date(is_valid_end_date) {
+    var errorDiv = document.getElementById("exp_end_date_error");
+    if (!is_valid_end_date) {
+        errorDiv.classList.remove("hidden");
+    } else {
+        errorDiv.classList.add("hidden");
+    }
+}
+
+
+function employement_type_literal_to_int(employment_type) {
+    switch (employment_type) {
+        case "full-time":
+            return 0;
+        case "part-time":
+            return 1;
+        case "contractor":
+            return 2;
+        default:
+            return null
+    }
+}
 
 function draw_change_password(changePasswordContainer) {
     const changePasswordBtn = document.createElement('button'); //creating the button
@@ -231,4 +327,30 @@ async function update_employee_password(old_password, new_password, on_success) 
         console.log(`Error: ${error_response}`);
     }
 
+}
+
+
+async function add_employee_experience(company_name, title, start_date, end_date, employment_type, on_success) {
+    var formData = new FormData();
+    formData.append('company_name', company_name);
+    formData.append('title', title);
+    formData.append('start_date', start_date);
+    formData.append('end_date', end_date);
+    formData.append('employment_type', employment_type)
+    const response = await fetch('http://localhost:5000/employees/add-experience',
+        {
+            method: 'POST',
+            headers: {
+                'Authorization': stored_user_session['auth_token']
+            },
+            body: formData
+        });
+    if (response.ok) {
+        const update_password_response = await response.text(); // get the json of the jobs from the response endpoint
+        console.log(update_password_response)
+        on_success()
+    } else {
+        const error_response = await response.text();
+        console.log(`Error: ${error_response}`);
+    }
 }

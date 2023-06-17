@@ -343,7 +343,7 @@ async function add_employee_experience(company_name, title, start_date, end_date
         });
     if (response.ok) {
         const adde_experience_response = await response.json(); // get the json of the jobs from the response endpoint
-        console.log(JSON.stringify(update_password_response))
+        console.log(JSON.stringify(adde_experience_response))
         on_success(adde_experience_response)
     } else {
         const error_response = await response.text();

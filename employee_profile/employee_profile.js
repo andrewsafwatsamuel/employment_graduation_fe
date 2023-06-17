@@ -4,24 +4,67 @@ const is_employee = stored_user_session['user_type'].toLowerCase() == 'employee'
 const btn_add_experience = document.getElementById('open-modal-btn');
 const change_password_container = document.getElementById('change_password');
 const btn_update_profile = document.getElementById('btn-update-profile');
+const btn_update_profile_save = document.getElementById('update-profile-save-button')
+
+const name_field = document.getElementById('name')
+const bio_field = document.getElementById('bio')
+const title_field = document.getElementById('title')
+const phone_field = document.getElementById('phone')
+const email_field = document.getElementById('email')
+
+const name_input = document.getElementById('name-input')
+const bio_input = document.getElementById('bio-input')
+const title_input = document.getElementById('title-input')
+const phone_input = document.getElementById('phone-input')
+const email_input = document.getElementById('email-input')
+
 
 document.addEventListener('DOMContentLoaded', function () {
     M.AutoInit();
-
-    if (!is_employee) {
-        btn_update_profile.style.display = 'none';
-        btn_add_experience.style.display = 'none';
-
-    }
-    btn_update_profile.addEventListener('click', () => {
-        var instance = M.Modal.getInstance(document.getElementById('update-profile-modal'));
-        instance.open();
+    get_employee_profile((json) => {
+        name_field.value = json['name']
+        bio_field.value = json['bio']
+        title_field.value = json['title']
+        phone_field.value = json['phone']
+        email_field.value = json['email']
+        name_input.value = json['name']
+        bio_input.value = json['bio']
+        title_input.value = json['title']
+        phone_input.value = json['phone']
+        email_input.value = json['email']
     })
-
-    if (is_employee) {
-        draw_change_password(change_password_container)
-    }
 });
+
+btn_update_profile_save.addEventListener('click', () => {
+    update_employee_profile(
+        name_input.value,
+        bio_input.value,
+        email_input.value,
+        phone_input.value,
+        title_input.value,
+        () => {
+            name_field.value = name_input.value
+            bio_field.value = bio_input.value
+            title_field.value = title_input.value
+            phone_field.value = phone_input.value
+            email_field.value = email_input.value
+        }
+    )
+})
+
+if (!is_employee) {
+    btn_update_profile.style.display = 'none';
+    btn_add_experience.style.display = 'none';
+}
+
+btn_update_profile.addEventListener('click', () => {
+    var instance = M.Modal.getInstance(document.getElementById('update-profile-modal'));
+    instance.open();
+})
+
+if (is_employee) {
+    draw_change_password(change_password_container)
+}
 
 const experienceListContainer = document.getElementById("experience-list");
 
@@ -124,19 +167,44 @@ function draw_change_password(changePasswordContainer) {
 
 // getting employee profile data from the endpoint
 //get_employee_profile()
-async function get_company_profile(on_success) {
-    const response = await fetch('http://localhost:5000/employees/' + current_user_session["owner_id"],
+async function get_employee_profile(on_success) {
+    const response = await fetch('http://localhost:5000/employees/' + stored_user_session["owner_id"],
         {
             method: 'GET'
         });
     if (response.ok) {
-        const company_profile = await response.json(); // get the json of the jobs from the response endpoint
-        on_success(company_profile)
-        console.log(JSON.stringify(company_profile))
-
+        const employee_profile = await response.json(); // get the json of the jobs from the response endpoint
+        on_success(employee_profile)
+        console.log(JSON.stringify(employee_profile))
     } else {
         const error_response = await response.text();
+        console.log(`Error: ${error_response}`);
+    }
+}
 
+// updating the profile
+async function update_employee_profile(name, bio, email, phone, title, on_success) {
+    var formData = new FormData();
+    formData.append("name", name);
+    formData.append("bio", bio);
+    formData.append("email", email);
+    formData.append("phone", phone);
+    formData.append("title", title);
+
+    const response = await fetch('http://localhost:5000/employees/update-profile',
+        {
+            method: 'PUT',
+            headers: {
+                'Authorization': stored_user_session['auth_token']
+            },
+            body: formData
+        });
+    if (response.ok) {
+        const update_profile_response = await response.json(); // get the json of the jobs from the response endpoint
+        console.log(JSON.stringify(update_profile_response))
+        on_success(update_profile_response)
+    } else {
+        const error_response = await response.text();
         console.log(`Error: ${error_response}`);
     }
 }

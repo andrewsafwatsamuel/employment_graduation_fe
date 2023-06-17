@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="employee_profile.css">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 
 <body>
@@ -16,46 +17,25 @@
             <div class="col s12 m6">
                 <div class="section">
                     <h5>Personal Details</h5>
-                    <div class="row">
+                    <div id="profile-info" class="row">
                         <div class="input-field col s12">
-                            <input type="text" id="name">
-                            <label for="name">Name</label>
-                        </div>
-                        <div class="input-field col s12">
-                            <textarea id="bio" class="materialize-textarea"></textarea>
-                            <label for="bio">Bio</label>
+                            <input type="text" id="name" readonly>
                         </div>
                         <div class="input-field col s12">
-                            <input type="text" id="title">
-                            <label for="title">Title</label>
+                            <textarea id="bio" class="materialize-textarea" readonly></textarea>
                         </div>
                         <div class="input-field col s12">
-                            <input type="text" id="phone">
-                            <label for="phone">Phone</label>
+                            <input type="text" id="title" readonly>
                         </div>
                         <div class="input-field col s12">
-                            <input type="email" id="email">
-                            <label for="email">Email</label>
+                            <input type="text" id="phone" readonly>
                         </div>
-                        <div class="col s12">
-                            <button class="btn waves-effect waves-light custom" type="submit"
-                                name="action">Save</button>
+                        <div class="input-field col s12">
+                            <input type="email" id="email" readonly>
                         </div>
-                        <h5> Change Password </h5>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input type="password" id="oldPassword">
-                                <label for="oldPassword">Old Password</label>
-                            </div>
-                            <div class="input-field col s12">
-                                <input type="password" id="newPassword">
-                                <label for="newPassword">New Password</label>
-                            </div>
-                            <div class="col s12">
-                                <button class="btn waves-effect waves-light" type="submit" name="action">Change
-                                    Password</button>
-                            </div>
-                        </div>
+                        <button id="btn-update-profile" class="btn waves-effect waves-light custom" type="submit"
+                            name="action">Update profile info</button>
+                        <div id="change_password" class="row"></div>
                     </div>
                 </div>
             </div>
@@ -78,37 +58,83 @@
         </div>
     </div>
 
+    <div id="update-profile-modal" class="modal">
+        <div class="modal-content">
+            <h4>Update profile info</h4>
+            <div class="input-field col s12">
+                <input type="text" id="name-input">
+                <label for="name">Name</label>
+            </div>
+            <div class="input-field col s12">
+                <textarea id="bio-input" class="materialize-textarea"></textarea>
+                <label for="bio">Bio</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" id="title-input">
+                <label for="title">Title</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" id="phone-input">
+                <label for="phone">Phone</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="email" id="email-input">
+                <label for="email">Email</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-close waves-effect waves-light btn-flat" id="update-profile-save-button">Save</button>
+        </div>
+    </div>
+
+
+    <div id="change-password-modal" class="modal">
+        <div class="modal-content">
+            <h4>Change Password</h4>
+            <div class="input-field">
+                <input type="password" id="old-password">
+                <label for="old-password">Old Password</label>
+            </div>
+            <div class="input-field">
+                <input type="password" id="new-password">
+                <label for="new-password">New Password</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-close waves-effect waves-light btn-flat" id="change-password-save-btn">Save</button>
+        </div>
+    </div>
+
     <div id="modal" class="modal">
         <div class="modal-content">
             <h4>Add Experience</h4>
-            <form id="experience-form">
-                <div class="input-field">
-                    <input type="text" id="company-name" required>
-                    <label for="company-name">Company Name</label>
-                </div>
-                <div class="input-field">
-                    <input type="text" id="job-title" required>
-                    <label for="job-title">Job Title</label>
-                </div>
-                <div class="input-field">
-                    <select id="employment-type" required>
-                        <option value="" disabled selected>Select Employment Type</option>
-                        <option value="full-time">Full-time</option>
-                        <option value="part-time">Part-time</option>
-                        <option value="contractor">Contractor</option>
-                    </select>
-                    <label for="employment-type">Employment Type</label>
-                </div>
-                <div class="input-field">
-                    <input type="text" class="datepicker" id="start-date" required>
-                    <label for="start-date">Start Date</label>
-                </div>
-                <div class="input-field">
-                    <input type="text" class="datepicker" id="end-date" required>
-                    <label for="end-date">End Date</label>
-                </div>
-                <button type="submit" class="btn">Add Experience</button>
-            </form>
+            <div class="input-field">
+                <input type="text" id="company-name-input" required>
+                <label for="company-name">Company Name</label>
+            </div>
+            <div class="input-field">
+                <input type="text" id="job-title-input" required>
+                <label for="job-title">Job Title</label>
+            </div>
+            <div class="input-field">
+                <select id="employment-type-input" required>
+                    <option value="" disabled selected>Select Employment Type</option>
+                    <option value="full-time">Full time</option>
+                    <option value="part-time">Part time</option>
+                    <option value="contractor">Contractor</option>
+                </select>
+                <label for="employment-type">Employment Type</label>
+            </div>
+            <div class="input-field">
+                <input type="text" class="datepicker" id="start-date-input" required>
+                <label for="start-date">Start Date</label>
+            </div>
+            <div class="input-field">
+                <input type="text" class="datepicker" id="end-date-input" required>
+                <label for="end-date">End Date</label>
+                <div id="exp_end_date_error" class="hidden">Invalid end date</div>
+            </div>
+            <button id="btn_add_experience" class="btn">Add Experience</button>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

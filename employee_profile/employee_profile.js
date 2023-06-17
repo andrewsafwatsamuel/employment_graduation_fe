@@ -1,6 +1,14 @@
+const stored_user_session = JSON.parse(sessionStorage.getItem("session_data"));
+const is_employee = stored_user_session['user_type'].toLowerCase() == 'employee'
 
 document.addEventListener('DOMContentLoaded', function () {
     M.AutoInit();
+    const change_password_container = document.getElementById('change_password')
+
+
+    if (is_employee) {
+        draw_change_password(change_password_container)
+    }
 });
 
 const experienceListContainer = document.getElementById("experience-list");
@@ -50,9 +58,9 @@ experienceList.forEach((experience) => {
     dateRange.textContent = `${experience.startDate} - ${experience.endDate}`;
 
     const deleteButton = document.createElement("div");
-    deleteButton.classList.add("delete-button");
-    deleteButton.innerHTML = '<i class="material-icons">delete</i>';
-
+    deleteButton.classList.add('material-icons', 'remove-btn');
+    deleteButton.textContent = 'close';
+    
     card.appendChild(companyName);
     card.appendChild(employmentType);
     card.appendChild(jobTitle);
@@ -72,3 +80,27 @@ document.getElementById('open-modal-btn').addEventListener('click', function () 
     var instance = M.Modal.getInstance(document.getElementById('modal'));
     instance.open();
 });
+
+function draw_change_password(changePasswordContainer) {
+    const changePasswordBtn = document.createElement('button'); //creating the button
+    changePasswordBtn.classList.add('btn', 'waves-effect', 'waves-light', 'custom-btn'); //giving it css styles
+    changePasswordBtn.textContent = 'Change Password';
+    changePasswordBtn.addEventListener('click', () => {
+        changePasswordModalInstance.open();
+    });
+
+    changePasswordContainer.appendChild(changePasswordBtn);
+
+    // Change password modal
+    const changePasswordModal = document.getElementById('change-password-modal');
+    const changePasswordModalInstance = M.Modal.init(changePasswordModal);
+
+    const changePasswordSaveBtn = document.getElementById('change-password-save-btn');
+    changePasswordSaveBtn.addEventListener('click', () => {
+        const oldPassword = document.getElementById('old-password').value;
+        const newPassword = document.getElementById('new-password').value;
+        //update_company_password(oldPassword, newPassword, () => {
+        changePasswordModalInstance.close();
+        //});
+    });
+}

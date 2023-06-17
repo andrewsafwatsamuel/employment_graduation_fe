@@ -39,23 +39,9 @@
                         </div>
                         <div class="col s12">
                             <button class="btn waves-effect waves-light custom" type="submit"
-                                name="action">Save</button>
+                                name="action">Update profile info</button>
                         </div>
-                        <h5> Change Password </h5>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input type="password" id="oldPassword">
-                                <label for="oldPassword">Old Password</label>
-                            </div>
-                            <div class="input-field col s12">
-                                <input type="password" id="newPassword">
-                                <label for="newPassword">New Password</label>
-                            </div>
-                            <div class="col s12">
-                                <button class="btn waves-effect waves-light" type="submit" name="action">Change
-                                    Password</button>
-                            </div>
-                        </div>
+                        <div id="change_password" class="row"></div>
                     </div>
                 </div>
             </div>
@@ -75,6 +61,23 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div id="change-password-modal" class="modal">
+        <div class="modal-content">
+            <h4>Change Password</h4>
+            <div class="input-field">
+                <input type="password" id="old-password">
+                <label for="old-password">Old Password</label>
+            </div>
+            <div class="input-field">
+                <input type="password" id="new-password">
+                <label for="new-password">New Password</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-close waves-effect waves-light btn-flat" id="change-password-save-btn">Save</button>
         </div>
     </div>
 

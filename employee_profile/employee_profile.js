@@ -159,9 +159,9 @@ function draw_change_password(changePasswordContainer) {
     changePasswordSaveBtn.addEventListener('click', () => {
         const oldPassword = document.getElementById('old-password').value;
         const newPassword = document.getElementById('new-password').value;
-        //update_company_password(oldPassword, newPassword, () => {
-        changePasswordModalInstance.close();
-        //});
+        update_employee_password(oldPassword, newPassword, () => {
+            changePasswordModalInstance.close();
+        });
     });
 }
 
@@ -207,4 +207,28 @@ async function update_employee_profile(name, bio, email, phone, title, on_succes
         const error_response = await response.text();
         console.log(`Error: ${error_response}`);
     }
+}
+
+async function update_employee_password(old_password, new_password, on_success) {
+    var formData = new FormData();
+    formData.append('old-password', old_password);
+    formData.append('new-password', new_password);
+    const response = await fetch('http://localhost:5000/employees/update-password',
+        {
+            method: 'PUT',
+            headers: {
+                'Authorization': stored_user_session['auth_token']
+            },
+            body: formData
+        });
+    if (response.ok) {
+        const update_password_response = await response.text(); // get the json of the jobs from the response endpoint
+        console.log(update_password_response)
+        on_success()
+    } else {
+        const error_response = await response.text();
+
+        console.log(`Error: ${error_response}`);
+    }
+
 }

@@ -6,35 +6,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link rel="stylesheet" href="company profile style.css">
+  <link rel="stylesheet" href="company_profile_style.css">
 </head>
 
 <body>
+  <nav>
+    <ul>
+      <li><a id="home" href="../published_jobs/published_jobs.html">Home</a></li>
+    </ul>
+  </nav>
   <div class="container">
     <div class="row">
       <div class="col s12 m6">
         <div class="section">
           <h5>Company Information</h5>
           <div class="input-field">
-            <input type="text" id="name" value="Apple" disabled>
-            <label for="name">Name</label>
+            <input type="text" id="name" disabled>
           </div>
           <div class="input-field">
-            <textarea id="bio" class="materialize-textarea"
-              disabled>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque tristique tristique. Vivamus eu maximus leo. In hac habitasse platea dictumst.</textarea>
-            <label for="bio">Bio</label>
+            <textarea id="bio" class="materialize-textarea" disabled></textarea>
           </div>
           <div class="input-field">
-            <input type="text" id="website" value="www.apple.com" disabled>
-            <label for="website">Website</label>
+            <input type="text" id="website" disabled>
           </div>
           <div class="input-field">
-            <input type="text" id="industry" value="Electronics" disabled>
-            <label for="industry">Industry</label>
+            <input type="text" id="fbpage" disabled>
           </div>
           <div class="input-field">
-            <input type="email" id="email" value="info@apple.com" disabled>
-            <label for="email">Email</label>
+            <input type="text" id="industry" disabled>
+          </div>
+          <div class="input-field">
+            <input type="email" id="email" disabled>
           </div>
           <button class="btn waves-effect waves-light custom" id="update-info-btn">Update Info</button>
         </div>
@@ -43,7 +45,7 @@
         <div class="section">
           <h5>Phone Numbers</h5>
           <ul id="phone-numbers-list" class="collection">
-            <!-- Phone numbers will be added dynamically using JavaScript -->
+            <!-- fill dynmically -->
           </ul>
           <div class="input-field">
             <input type="text" id="new-phone-number">
@@ -55,7 +57,7 @@
     </div>
   </div>
 
-  <!-- Modal -->
+  <!-- Update Info Modal -->
   <div id="modal" class="modal">
     <div class="modal-content">
       <h4>Edit Company Information</h4>
@@ -70,6 +72,10 @@
       <div class="input-field">
         <input type="text" id="edit-website">
         <label for="edit-website">Website</label>
+      </div>
+      <div class="input-field">
+        <input type="text" id="edit-fbpage">
+        <label for="edit-fbpage">Facebook Page</label>
       </div>
       <div class="input-field">
         <input type="text" id="edit-industry">
@@ -104,7 +110,7 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script src="company profile js.js">
+  <script src="company_profile_js.js">
   </script>
 </body>
 

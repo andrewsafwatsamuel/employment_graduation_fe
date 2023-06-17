@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="employee_profile.css">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 
 <body>
@@ -107,34 +108,33 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <h4>Add Experience</h4>
-            <form id="experience-form">
-                <div class="input-field">
-                    <input type="text" id="company-name" required>
-                    <label for="company-name">Company Name</label>
-                </div>
-                <div class="input-field">
-                    <input type="text" id="job-title" required>
-                    <label for="job-title">Job Title</label>
-                </div>
-                <div class="input-field">
-                    <select id="employment-type" required>
-                        <option value="" disabled selected>Select Employment Type</option>
-                        <option value="full-time">Full-time</option>
-                        <option value="part-time">Part-time</option>
-                        <option value="contractor">Contractor</option>
-                    </select>
-                    <label for="employment-type">Employment Type</label>
-                </div>
-                <div class="input-field">
-                    <input type="text" class="datepicker" id="start-date" required>
-                    <label for="start-date">Start Date</label>
-                </div>
-                <div class="input-field">
-                    <input type="text" class="datepicker" id="end-date" required>
-                    <label for="end-date">End Date</label>
-                </div>
-                <button type="submit" class="btn">Add Experience</button>
-            </form>
+            <div class="input-field">
+                <input type="text" id="company-name-input" required>
+                <label for="company-name">Company Name</label>
+            </div>
+            <div class="input-field">
+                <input type="text" id="job-title-input" required>
+                <label for="job-title">Job Title</label>
+            </div>
+            <div class="input-field">
+                <select id="employment-type-input" required>
+                    <option value="" disabled selected>Select Employment Type</option>
+                    <option value="full-time">Full time</option>
+                    <option value="part-time">Part time</option>
+                    <option value="contractor">Contractor</option>
+                </select>
+                <label for="employment-type">Employment Type</label>
+            </div>
+            <div class="input-field">
+                <input type="text" class="datepicker" id="start-date-input" required>
+                <label for="start-date">Start Date</label>
+            </div>
+            <div class="input-field">
+                <input type="text" class="datepicker" id="end-date-input" required>
+                <label for="end-date">End Date</label>
+                <div id="exp_end_date_error" class="hidden">Invalid end date</div>
+            </div>
+            <button id="btn_add_experience" class="btn">Add Experience</button>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

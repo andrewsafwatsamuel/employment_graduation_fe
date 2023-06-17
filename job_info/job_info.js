@@ -17,6 +17,7 @@ const job_status = document.getElementById('jobStatus');
 
 // edit job modal
 const editJobModal = document.getElementById('editJobModal');
+const editJobModalInstance = M.Modal.init(editJobModal);
 const editJobTitleInput = document.getElementById('editJobTitle');
 const editJobDescriptionInput = document.getElementById('editJobDescription');
 const editExperienceLevelSelect = document.querySelector('editExperienceLevel')
@@ -59,6 +60,8 @@ if (is_employee) {
 
 document.addEventListener('DOMContentLoaded', function () {
     M.AutoInit();
+    M.FormSelect.init(editExperienceLevelSelect);
+
 });
 
 // update hob status
@@ -92,7 +95,7 @@ async function toggle_update_job_status(job_id, on_success) {
 
 
 btn_edit_job_details.addEventListener('click', () => {
-    editJobModal.open();
+    editJobModalInstance.open();
 });
 
 saveJobDetailsBtn.addEventListener('click', () => {
@@ -104,13 +107,13 @@ saveJobDetailsBtn.addEventListener('click', () => {
         job.id,
         (status_input.value.toLowerCase() == "open" ? 1 : 0),
         (json) => {
-            job = json
+            if(json['message']==null)job = json
             company_name.textContent = is_employee ? job.company : ""
             job_title.textContent = job.title
             job_description.textContent = job.description
             job_exp_level.textContent = job.exp_level
             job_status.textContent = job.status == 1 ? 'Open' : 'Closed'
-            editJobModal.close();
+            editJobModalInstance.close();
         }
     );
 

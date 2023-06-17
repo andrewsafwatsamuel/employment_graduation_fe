@@ -1,44 +1,31 @@
-const jobs = [
-	{
-		"company": "el company",
-		"description": "Ninjaaaaaaa one",
-		"exp_level": "Senior",
-		"id": 1,
-		"title": "Android Ninja"
-	},
-	{
-		"company": "el company",
-		"description": "Ninjaaaaaaa one",
-		"exp_level": "Senior",
-		"id": 2,
-		"title": "Android Ninja"
-	},
-	{
-		"company": "el company",
-		"description": "Ninjaaaaaaa one",
-		"exp_level": "Senior",
-		"id": 3,
-		"title": "Android Ninja"
-	}
-];
-
 const searchInput = document.getElementById('search-input');
 const searchButton = document.getElementById('search-button');
 const resultsDiv = document.getElementById('results');
 
-function searchJobs() {
-	// Clear previous results
-	resultsDiv.innerHTML = '';
 
-	// Get search term
-	const searchTerm = searchInput.value.toLowerCase();
+
+async function getJobs(seachKey) {
+  const response = await fetch(`http://localhost:5000/job-listing/search?searchKey=${seachKey}`);
+  const data = await response.json();
+  console.log('data:', data);
+  return data;
+}
+
+ async function searchJobs() {
+	 
+	 // Clear previous results
+	 resultsDiv.innerHTML = '';
+	 
+	 // Get search term
+	 const searchTerm = searchInput.value.toLowerCase();
+	 const jobs = await getJobs(searchTerm);
 
 	// Filter jobs based on search term
-	const filteredJobs = jobs.filter(job => job.title.toLowerCase().includes(searchTerm) || job.company.toLowerCase().includes(searchTerm) || job.description.toLowerCase().includes(searchTerm));
+	// const filteredJobs = jobs.filter(job => job.title.toLowerCase().includes(searchTerm) || job.company.toLowerCase().includes(searchTerm) || job.description.toLowerCase().includes(searchTerm));
 
 	// Display filtered jobs
-	if (filteredJobs.length > 0) {
-		filteredJobs.forEach(job => {
+	if (jobs.length > 0) {
+		jobs.forEach(job => {
 			const jobCard = document.createElement('div');
 			jobCard.classList.add('job-card');
 
@@ -72,5 +59,3 @@ function searchJobs() {
 }
 
 searchButton.addEventListener('click', searchJobs);
-
-

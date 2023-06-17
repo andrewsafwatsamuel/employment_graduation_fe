@@ -1,10 +1,22 @@
 const stored_user_session = JSON.parse(sessionStorage.getItem("session_data"));
 const is_employee = stored_user_session['user_type'].toLowerCase() == 'employee'
 
+const btn_add_experience = document.getElementById('open-modal-btn');
+const change_password_container = document.getElementById('change_password');
+const btn_update_profile = document.getElementById('btn-update-profile');
+
 document.addEventListener('DOMContentLoaded', function () {
     M.AutoInit();
-    const change_password_container = document.getElementById('change_password')
 
+    if (!is_employee) {
+        btn_update_profile.style.display = 'none';
+        btn_add_experience.style.display = 'none';
+
+    }
+    btn_update_profile.addEventListener('click', () => {
+        var instance = M.Modal.getInstance(document.getElementById('update-profile-modal'));
+        instance.open();
+    })
 
     if (is_employee) {
         draw_change_password(change_password_container)
@@ -57,15 +69,20 @@ experienceList.forEach((experience) => {
     dateRange.classList.add("date-range");
     dateRange.textContent = `${experience.startDate} - ${experience.endDate}`;
 
-    const deleteButton = document.createElement("div");
-    deleteButton.classList.add('material-icons', 'remove-btn');
-    deleteButton.textContent = 'close';
-    
+
+
     card.appendChild(companyName);
     card.appendChild(employmentType);
     card.appendChild(jobTitle);
     card.appendChild(dateRange);
-    card.appendChild(deleteButton);
+
+    if (is_employee) {
+        const deleteButton = document.createElement("div");
+        deleteButton.classList.add('material-icons', 'remove-btn');
+        deleteButton.textContent = 'close';
+        card.appendChild(deleteButton);
+    }
+
     experienceListContainer.appendChild(card);
 });
 
@@ -76,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
     M.FormSelect.init(select);
 });
 
-document.getElementById('open-modal-btn').addEventListener('click', function () {
+btn_add_experience.addEventListener('click', function () {
     var instance = M.Modal.getInstance(document.getElementById('modal'));
     instance.open();
 });
@@ -103,4 +120,23 @@ function draw_change_password(changePasswordContainer) {
         changePasswordModalInstance.close();
         //});
     });
+}
+
+// getting employee profile data from the endpoint
+//get_employee_profile()
+async function get_company_profile(on_success) {
+    const response = await fetch('http://localhost:5000/employees/' + current_user_session["owner_id"],
+        {
+            method: 'GET'
+        });
+    if (response.ok) {
+        const company_profile = await response.json(); // get the json of the jobs from the response endpoint
+        on_success(company_profile)
+        console.log(JSON.stringify(company_profile))
+
+    } else {
+        const error_response = await response.text();
+
+        console.log(`Error: ${error_response}`);
+    }
 }

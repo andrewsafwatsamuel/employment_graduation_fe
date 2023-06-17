@@ -16,31 +16,24 @@
             <div class="col s12 m6">
                 <div class="section">
                     <h5>Personal Details</h5>
-                    <div class="row">
+                    <div id="profile-info" class="row">
                         <div class="input-field col s12">
-                            <input type="text" id="name">
-                            <label for="name">Name</label>
-                        </div>
-                        <div class="input-field col s12">
-                            <textarea id="bio" class="materialize-textarea"></textarea>
-                            <label for="bio">Bio</label>
+                            <input type="text" id="name" readonly>
                         </div>
                         <div class="input-field col s12">
-                            <input type="text" id="title">
-                            <label for="title">Title</label>
+                            <textarea id="bio" class="materialize-textarea" readonly></textarea>
                         </div>
                         <div class="input-field col s12">
-                            <input type="text" id="phone">
-                            <label for="phone">Phone</label>
+                            <input type="text" id="title" readonly>
                         </div>
                         <div class="input-field col s12">
-                            <input type="email" id="email">
-                            <label for="email">Email</label>
+                            <input type="text" id="phone" readonly>
                         </div>
-                        <div class="col s12">
-                            <button class="btn waves-effect waves-light custom" type="submit"
-                                name="action">Update profile info</button>
+                        <div class="input-field col s12">
+                            <input type="email" id="email" readonly>
                         </div>
+                        <button id="btn-update-profile" class="btn waves-effect waves-light custom" type="submit"
+                            name="action">Update profile info</button>
                         <div id="change_password" class="row"></div>
                     </div>
                 </div>
@@ -63,6 +56,36 @@
             </div>
         </div>
     </div>
+
+    <div id="update-profile-modal" class="modal">
+        <div class="modal-content">
+            <h4>Update profile info</h4>
+            <div class="input-field col s12">
+                <input type="text" id="name-input">
+                <label for="name">Name</label>
+            </div>
+            <div class="input-field col s12">
+                <textarea id="bio-input" class="materialize-textarea"></textarea>
+                <label for="bio">Bio</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" id="title-input">
+                <label for="title">Title</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" id="phone-input">
+                <label for="phone">Phone</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="email" id="email-input">
+                <label for="email">Email</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-close waves-effect waves-light btn-flat" id="change-password-save-btn">Save</button>
+        </div>
+    </div>
+
 
     <div id="change-password-modal" class="modal">
         <div class="modal-content">

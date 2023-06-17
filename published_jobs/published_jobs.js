@@ -12,7 +12,7 @@ async function get_published_jobs(auth_token) {
 	});
 	if (response.ok) {
 		const published_jobs = await response.json(); // get the json of the jobs from the response endpoint
-		if (published_jobs.hasOwnProperty('message')) {
+		if (published_jobs.hasOwnProperty('message')) { // if there is message then no jobs found
 			no_jobs_found()
 		}
 		else {
@@ -35,9 +35,10 @@ function fill_jobs(jobs) {
 			window.location.href = '../job_info/job_info.html?id=' + job['id'] // give it to the job details page to view the job descriptions
 		});
 
-		const jobDetails = document.createElement("div");
+		const jobDetails = document.createElement("div"); // creating a new div in the Parent div (Job card)
 		jobDetails.classList.add("job-details");
 
+		// creating and getting the job details info
 		const jobTitle = document.createElement("div");
 		jobTitle.classList.add("job-title");
 		jobTitle.textContent = job.title;
@@ -50,6 +51,7 @@ function fill_jobs(jobs) {
 		jobExpLevel.classList.add("job-exp-level");
 		jobExpLevel.textContent = `Experience Level: ${job.exp_level}`;
 
+		// appending the details and the result to the parent 
 		jobDetails.appendChild(jobTitle);
 		jobDetails.appendChild(jobDescription);
 		jobDetails.appendChild(jobExpLevel);
@@ -63,7 +65,7 @@ function fill_jobs(jobs) {
 
 function no_jobs_found() {
 	const jobCard = document.createElement("div");
-	jobCard.classList.add("job-card-empty", "empty-response"); // Apply additional CSS class for styling
+	jobCard.classList.add("job-card-empty", "empty-response");
 
 	const message = document.createElement("p");
 	message.classList.add("message");

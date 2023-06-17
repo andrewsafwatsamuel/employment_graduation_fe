@@ -1,5 +1,5 @@
-const current_user_session = JSON.parse(sessionStorage.getItem('session_data'))
-console.log(sessionStorage.getItem('session_data'))
+const current_user_session = JSON.parse(sessionStorage.getItem('session_data')) // getting the session data from browser and converting the string to Js object
+console.log(sessionStorage.getItem('session_data')) 
 // sessionStorage.setItem("session_data", JSON.stringify(session_data));
 
 
@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize modal
     const modal = document.getElementById('modal'); // getting the modal id from the html
-    const modalInstance = M.Modal.init(modal); // intilize the modal from the google MD and save it to use it later
+    const modalInstance = M.Modal.init(modal); // intilize the modal
 
-    // Fill fields with initial values
+    // Fill fields with initial values from the html
     const nameField = document.getElementById('name');
     const bioField = document.getElementById('bio');
     const websiteField = document.getElementById('website');
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Save updated information
     const saveBtn = document.getElementById('save-btn');
     saveBtn.addEventListener('click', () => {
-        nameField.value = document.getElementById('edit-name').value;
+        nameField.value = document.getElementById('edit-name').value; // -> assign the html data to the fields
         bioField.value = document.getElementById('edit-bio').value;
         websiteField.value = document.getElementById('edit-website').value;
         fbpageField.value = document.getElementById('edit-fbpage').value;
@@ -78,15 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modalInstance.close();
     });
 
-
-
-
-
-    // add company phone to the dynamic list
-
-
-
-
+    
     // draw the button if the company is the user
     if (current_user_session['user_type'].toLowerCase() == "company") { draw_change_password(updateInfoBtn) }
     if (current_user_session['user_type'].toLowerCase() != "company") {

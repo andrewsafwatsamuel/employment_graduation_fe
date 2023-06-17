@@ -133,13 +133,17 @@ function draw_experience_element(experience) {
 
     dateRangeRow.appendChild(start_date);
     dateRangeRow.appendChild(end_date_element);
-
     card.appendChild(dateRangeRow);
 
     if (is_employee) {
         const deleteButton = document.createElement("div");
         deleteButton.classList.add('material-icons', 'remove-btn');
         deleteButton.textContent = 'close';
+        deleteButton.addEventListener('click',()=>{
+            remove_experience(experience['id'],()=>{
+                card.remove();
+            })
+        })
         card.appendChild(deleteButton);
     }
 
@@ -184,15 +188,8 @@ bin_add_experience.addEventListener('click', () => {
             experience_start_date_mysql,
             experience_end_date_mysql,
             employment_type,
-            () => {
-                const experience = {
-                    "company_name": company_name,
-                    "employment_type": employment_type,
-                    "end_date": experience_end_date_mysql,
-                    "start_date": experience_start_date_mysql,
-                    "title": job_title
-                }
-                draw_experience_element(experience)
+            (json) => {
+                draw_experience_element(json)
                 add_exp_modal_instance.close()
             })
     }
@@ -329,7 +326,6 @@ async function update_employee_password(old_password, new_password, on_success) 
 
 }
 
-
 async function add_employee_experience(company_name, title, start_date, end_date, employment_type, on_success) {
     var formData = new FormData();
     formData.append('company_name', company_name);
@@ -346,11 +342,32 @@ async function add_employee_experience(company_name, title, start_date, end_date
             body: formData
         });
     if (response.ok) {
-        const update_password_response = await response.text(); // get the json of the jobs from the response endpoint
-        console.log(update_password_response)
+        const adde_experience_response = await response.json(); // get the json of the jobs from the response endpoint
+        console.log(JSON.stringify(update_password_response))
+        on_success(adde_experience_response)
+    } else {
+        const error_response = await response.text();
+        console.log(`Error: ${error_response}`);
+    }
+}
+
+async function remove_experience(exp_id, on_success) {
+    var formData = new FormData();
+    formData.append('id', exp_id);
+    const response = await fetch('http://localhost:5000/employees/remove-experience',
+        {
+            method: 'DELETE',
+            headers: {
+                'Authorization': stored_user_session['auth_token']
+            },
+            body: formData
+        });
+    if (response.ok) {
+        const remove_experience_success = await response.json(); // get the json of the jobs from the response endpoint
         on_success()
     } else {
         const error_response = await response.text();
         console.log(`Error: ${error_response}`);
     }
+
 }

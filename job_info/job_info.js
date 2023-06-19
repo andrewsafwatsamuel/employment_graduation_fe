@@ -44,6 +44,9 @@ job_description.textContent = job.description
 job_exp_level.textContent = job.exp_level
 job_status.textContent = job.status == 1 ? 'Open' : 'Closed'
 
+// job applications list
+const job_applications_list = document.getElementById('job_applications_page')
+
 
 if (is_company) {
     company_name_container.remove();
@@ -143,10 +146,51 @@ async function update_job_info(exp_level, discription, title, job_id, status, on
 };
 
 btn_view_applications.addEventListener('click', () => {
-    view_job_applications((json)=>{
-        
+    view_job_applications((json) => {
+        while (job_applications_list.firstChild) {
+            job_applications_list.removeChild(job_applications_list.firstChild);
+          }
+        fill_job_applications(json);
     })
 });
+
+function fill_job_applications(applications) {
+    applications.forEach((application) => {
+        const application_card = document.createElement("div"); // create new div
+        application_card.classList.add("application-card"); // apply the css style on the card
+
+        application_card.addEventListener("click", () => {
+            
+        });
+
+        const application_deatils = document.createElement("div"); // creating a new div in the Parent div (Job card)
+        application_deatils.classList.add("application-details");
+
+        // creating and getting the Application details info
+        const emp_name = document.createElement("div");
+        emp_name.classList.add("application_text");
+        emp_name.textContent = application.name;
+
+        const emp_title = document.createElement("div");
+        emp_title.classList.add("application_text");
+        emp_title.textContent = application.title;
+
+        // appending the details and the result to the parent 
+        application_deatils.appendChild(emp_name);
+        application_deatils.appendChild(emp_title);
+
+        application_card.appendChild(application_deatils);
+        job_applications_list.appendChild(application_card);
+    });
+
+}
+
+
+
+
+
+
+
 
 async function view_job_applications(on_success) {
     const response = await fetch('http://localhost:5000/job-listing/' + job.id + '/applications',
@@ -156,7 +200,7 @@ async function view_job_applications(on_success) {
                 'Authorization': session_data['auth_token']
             }
         });
-    
+
     if (response.ok) {
         const get_job_applications = await response.json(); // get the json of the jobs from the response endpoint
         console.log(JSON.stringify(get_job_applications))
@@ -168,20 +212,20 @@ async function view_job_applications(on_success) {
 };
 
 
-btn_apply.addEventListener('click',()=>{
+btn_apply.addEventListener('click', () => {
     apply_to_job()
 });
 
 async function apply_to_job() {
     const form = new FormData();
-    form.append('job_listing_id',job['id'])
+    form.append('job_listing_id', job['id'])
     const response = await fetch('http://localhost:5000/job-listing/apply',
         {
             method: 'POST',
             headers: {
                 'Authorization': session_data['auth_token']
             },
-            body : form
+            body: form
         });
     if (response.ok) {
         const apply_to_job_response = await response.json(); // get the json of the jobs from the response endpoint

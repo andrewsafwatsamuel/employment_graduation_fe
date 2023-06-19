@@ -31,11 +31,13 @@ const status_input = document.getElementById('editJobStatus');
 // employee views
 const btn_apply = document.getElementById('applyBtn');
 const applications_status_container = document.getElementById('application_status_container')
+const btn_view_company_profile = document.getElementById('view_company_profile_btn')
 
 // company views
 const btn_edit_job_details = document.getElementById('edit_job_details_btn')
 const btn_toggle_job_status = document.getElementById('toggle_job_status_btn')
 const btn_view_applications = document.getElementById('view_applications_btn')
+const job_status_container = document.getElementById('job_status_container');
 
 // set basic job info
 company_name.textContent = is_employee ? job.company : ""
@@ -51,12 +53,14 @@ const job_applications_list = document.getElementById('job_applications_page')
 if (is_company) {
     company_name_container.remove();
     btn_apply.style.display = 'none';
+    btn_view_company_profile.style.display = 'none';
 }
 
 if (is_employee) {
     btn_edit_job_details.style.display = 'none';
     btn_toggle_job_status.style.display = 'none';
     btn_view_applications.style.display = 'none';
+    job_status_container.style.display = 'none';
 }
 
 
@@ -69,8 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // update hob status
 btn_toggle_job_status.addEventListener('click', () => {
     toggle_update_job_status(job.id, (json) => {
-        job['status'] = json.status
-        job_status.textContent = job.status == 1 ? 'Open' : 'Closed'
+        job_status.textContent = job_status.textContent == 'Closed'? 'Open' : 'Closed'
     })
 })
 

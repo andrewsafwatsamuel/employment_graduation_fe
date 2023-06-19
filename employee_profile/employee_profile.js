@@ -30,7 +30,9 @@ const email_input = document.getElementById('email-input')
 
 document.addEventListener('DOMContentLoaded', function () {
     M.AutoInit();
-    get_employee_profile((json) => {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    get_employee_profile( is_employee?stored_user_session["owner_id"]:urlParams.get('emp_id'),(json) => {
         name_field.value = json['name']
         bio_field.value = json['bio']
         title_field.value = json['title']
@@ -260,8 +262,8 @@ function draw_change_password(changePasswordContainer) {
 
 // getting employee profile data from the endpoint
 //get_employee_profile()
-async function get_employee_profile(on_success) {
-    const response = await fetch('http://localhost:5000/employees/' + stored_user_session["owner_id"],
+async function get_employee_profile(id,on_success) {
+    const response = await fetch('http://localhost:5000/employees/' + id,
         {
             method: 'GET'
         });

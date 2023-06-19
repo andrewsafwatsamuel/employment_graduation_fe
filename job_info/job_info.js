@@ -160,7 +160,7 @@ function fill_job_applications(applications) {
         application_card.classList.add("application-card"); // apply the css style on the card
 
         application_card.addEventListener("click", () => {
-            
+            window.location.href = '../employee_profile/employee_profile.html?emp_id=' + application.emp_id;
         });
 
         const application_deatils = document.createElement("div"); // creating a new div in the Parent div (Job card)
@@ -184,13 +184,6 @@ function fill_job_applications(applications) {
     });
 
 }
-
-
-
-
-
-
-
 
 async function view_job_applications(on_success) {
     const response = await fetch('http://localhost:5000/job-listing/' + job.id + '/applications',

@@ -31,7 +31,6 @@ const status_input = document.getElementById('editJobStatus');
 // employee views
 const btn_apply = document.getElementById('applyBtn');
 const applications_status_container = document.getElementById('application_status_container')
-const btn_view_company_profile = document.getElementById('view_company_profile_btn')
 
 // company views
 const btn_edit_job_details = document.getElementById('edit_job_details_btn')
@@ -53,7 +52,6 @@ const job_applications_list = document.getElementById('job_applications_page')
 if (is_company) {
     company_name_container.remove();
     btn_apply.style.display = 'none';
-    btn_view_company_profile.style.display = 'none';
 }
 
 if (is_employee) {
@@ -73,11 +71,12 @@ document.addEventListener('DOMContentLoaded', function () {
 // update hob status
 btn_toggle_job_status.addEventListener('click', () => {
     toggle_update_job_status(job.id, (json) => {
-        job_status.textContent = job_status.textContent == 'Closed'? 'Open' : 'Closed'
+        job_status.textContent = job_status.textContent == 'Closed' ? 'Open' : 'Closed'
     })
 })
 
 async function toggle_update_job_status(job_id, on_success) {
+    console.log(job_id)
     var formData = new FormData();
     formData.append('id', job_id);
     const response = await fetch('http://localhost:5000/job-listing/update-status',
@@ -112,13 +111,14 @@ saveJobDetailsBtn.addEventListener('click', () => {
         job.id,
         (status_input.value.toLowerCase() == "open" ? 1 : 0),
         (json) => {
-            if (json['message'] == null) job = json
-            company_name.textContent = is_employee ? job.company : ""
-            job_title.textContent = job.title
-            job_description.textContent = job.description
-            job_exp_level.textContent = job.exp_level
-            job_status.textContent = job.status == 1 ? 'Open' : 'Closed'
-            editJobModalInstance.close();
+            if (json['message'] == null) {
+                company_name.textContent = is_employee ? json.company : ""
+                job_title.textContent = json.title
+                job_description.textContent = json.description
+                job_exp_level.textContent = json.exp_level
+                job_status.textContent = json.status == 1 ? 'Open' : 'Closed'
+                editJobModalInstance.close();
+            }
         }
     );
 
@@ -152,7 +152,7 @@ btn_view_applications.addEventListener('click', () => {
     view_job_applications((json) => {
         while (job_applications_list.firstChild) {
             job_applications_list.removeChild(job_applications_list.firstChild);
-          }
+        }
         fill_job_applications(json);
     })
 });

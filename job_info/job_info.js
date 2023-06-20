@@ -76,7 +76,6 @@ btn_toggle_job_status.addEventListener('click', () => {
 })
 
 async function toggle_update_job_status(job_id, on_success) {
-    console.log(job_id)
     var formData = new FormData();
     formData.append('id', job_id);
     const response = await fetch('http://localhost:5000/job-listing/update-status',
@@ -111,14 +110,13 @@ saveJobDetailsBtn.addEventListener('click', () => {
         job.id,
         (status_input.value.toLowerCase() == "open" ? 1 : 0),
         (json) => {
-            if (json['message'] == null) {
-                company_name.textContent = is_employee ? json.company : ""
-                job_title.textContent = json.title
-                job_description.textContent = json.description
-                job_exp_level.textContent = json.exp_level
-                job_status.textContent = json.status == 1 ? 'Open' : 'Closed'
+            if (json['message'] == null) job = json
+            company_name.textContent = is_employee ? job.company : ""
+            job_title.textContent = job.title
+            job_description.textContent = job.description
+            job_exp_level.textContent = job.exp_level
+            job_status.textContent = job.status == 1 ? 'Open' : 'Closed'
                 editJobModalInstance.close();
-            }
         }
     );
 

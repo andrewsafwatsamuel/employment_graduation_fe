@@ -39,6 +39,8 @@ createJobBtn.addEventListener("click", () => {
 
 })
 
+// End of the Modal
+
 function fill_jobs(jobs) {
 	jobs.forEach((job) => {
 		const jobCard = document.createElement("div"); // create new div

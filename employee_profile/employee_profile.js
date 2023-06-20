@@ -1,4 +1,4 @@
-const stored_user_session = JSON.parse(sessionStorage.getItem("session_data"));
+const stored_user_session = JSON.parse(sessionStorage.getItem("session_data")); // getting the data from the browser and converting it to json object
 const is_employee = stored_user_session['user_type'].toLowerCase() == 'employee'
 
 const btn_open_add_experience = document.getElementById('open-modal-btn');
@@ -15,13 +15,13 @@ const add_experience_employment_type_input = document.getElementById('employment
 const add_experience_start_date_input = document.getElementById('start-date-input')
 const add_experience_end_date_input = document.getElementById('end-date-input')
 
-const name_field = document.getElementById('name')
+const name_field = document.getElementById('name') // the name fields in the layout of the profile
 const bio_field = document.getElementById('bio')
 const title_field = document.getElementById('title')
 const phone_field = document.getElementById('phone')
 const email_field = document.getElementById('email')
 
-const name_input = document.getElementById('name-input')
+const name_input = document.getElementById('name-input') // the name inputs in modal of the update profile info
 const bio_input = document.getElementById('bio-input')
 const title_input = document.getElementById('title-input')
 const phone_input = document.getElementById('phone-input')
@@ -29,11 +29,11 @@ const email_input = document.getElementById('email-input')
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    M.AutoInit();
+    M.AutoInit(); // automatic init to the google Material Design component
     const urlParams = new URLSearchParams(window.location.search);
 
     get_employee_profile( is_employee?stored_user_session["owner_id"]:urlParams.get('emp_id'),(json) => {
-        name_field.value = json['name']
+        name_field.value = json['name'] 
         bio_field.value = json['bio']
         title_field.value = json['title']
         phone_field.value = json['phone']
@@ -64,7 +64,7 @@ btn_update_profile_save.addEventListener('click', () => {
     )
 })
 
-if (!is_employee) {
+if (!is_employee) { // is_employee to make sure that the session returns a employee user
     btn_update_profile.style.display = 'none';
     btn_open_add_experience.style.display = 'none';
 }
@@ -74,14 +74,14 @@ btn_update_profile.addEventListener('click', () => {
     instance.open();
 })
 
-if (is_employee) {
+if (is_employee) { // is_employee to make sure that the session returns a employee user
     draw_change_password(change_password_container)
 }
 
 const experienceListContainer = document.getElementById("experience-list");
 
 
-
+// draw experince of the emp profile (current and previous experience)
 function draw_experiences(experienceList) {
     experienceList.forEach((experience) => {
         draw_experience_element(experience);
@@ -89,6 +89,7 @@ function draw_experiences(experienceList) {
 }
 
 function draw_experience_element(experience) {
+    // creating the card layout
     const card = document.createElement("div");
     card.classList.add("card");
 
@@ -112,8 +113,8 @@ function draw_experience_element(experience) {
     // Add start_date and end_date elements in a new row
     const dateRangeRow = document.createElement("div");
     dateRangeRow.classList.add("date-range");
-    dateRangeRow.style.display = "flex";
-    dateRangeRow.style.flexDirection = "row";
+    dateRangeRow.style.display = "flex"; // flexible box layout
+    dateRangeRow.style.flexDirection = "row"; // to allign it horizontally with the parent (card)
 
     const start_date = document.createElement("span");
     start_date.classList.add("date-range");
@@ -122,7 +123,7 @@ function draw_experience_element(experience) {
     start_date.textContent = 'Start : ' + date.toLocaleDateString('en-US', options);
 
     const end_date_element = document.createElement("span");
-    jobTitle.classList.add("date-range");
+    //jobTitle.classList.add("date-range");
     const end_date_json = experience['end_date']
     if (end_date_json != null) {
         const date_end = new Date(end_date_json);
@@ -137,7 +138,7 @@ function draw_experience_element(experience) {
     dateRangeRow.appendChild(end_date_element);
     card.appendChild(dateRangeRow);
 
-    if (is_employee) {
+    if (is_employee) { // is_employee to make sure that the session returns a employee user
         const deleteButton = document.createElement("div");
         deleteButton.classList.add('material-icons', 'remove-btn');
         deleteButton.textContent = 'close';
@@ -152,7 +153,7 @@ function draw_experience_element(experience) {
     experienceListContainer.appendChild(card);
 }
 
-function get_employment_type(type) {
+function get_employment_type(type) { // replacing the emp type from numeric (database) to string (to be added in the html)
     switch (type) {
         case 0:
             return "Full time";
@@ -201,7 +202,7 @@ function to_mysql_date(parsed_date) {
     if (parsed_date == null) {
         return parsed_date;
     } else {
-        return parsed_date.toISOString().split('T')[0];
+        return parsed_date.toISOString().split('T')[0]; // resulting the date to be "YYYY-MM-DDTHH:mm:ss.sssZ" then we split it to take only the date
     }
 }
 
@@ -236,6 +237,7 @@ function employement_type_literal_to_int(employment_type) {
     }
 }
 
+// draw the change password button with his modal
 function draw_change_password(changePasswordContainer) {
     const changePasswordBtn = document.createElement('button'); //creating the button
     changePasswordBtn.classList.add('btn', 'waves-effect', 'waves-light', 'custom-btn'); //giving it css styles
